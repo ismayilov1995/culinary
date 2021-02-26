@@ -10,5 +10,11 @@ final LinearGradient kPrimaryGradient = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
     colors: [kBgColor, Color(0xFF13827F)]);
+final LinearGradient kAccentGradient = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [Color(0xFFEEC867), Color(0xFFC1913C)]);
+
+final kCardShadow = BoxShadow(color: Colors.grey[400], blurRadius: 10);
 
 const double kAppRadius = 10.0;

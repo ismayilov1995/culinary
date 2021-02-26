@@ -2,75 +2,61 @@ import 'package:culinary_app/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class RecipeHorizontalCard extends StatelessWidget {
+  RecipeHorizontalCard(
+    this.title, {
+    @required this.prepareTime,
+    @required this.person,
+    @required this.imagePath,
+    this.onPressed,
+  });
+
+  final String title, prepareTime, person, imagePath;
+  final VoidCallback onPressed;
+
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          margin: EdgeInsets.only(top: 25),
-          padding: EdgeInsets.all(20.0),
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(kAppRadius),
-              boxShadow: [
-                BoxShadow(color: Colors.grey[400], blurRadius: 10),
-              ]),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AppText(
-                'Russian Salad',
-                fontSize: 22,
-                font: 'Poppins',
-                fontWeight: FontWeight.w700,
-              ),
-              Icon(Icons.grade, color: Colors.yellow[600]),
-              SizedBox(height: 10),
-              Row(
-                children: [
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.access_time,
-                        color: kTextColor,
-                        size: 16,
-                      ),
-                      SizedBox(width: 5),
-                      AppText(
-                        '5 min',
-                        color: kTextColor,
-                      ),
-                    ],
+    final size = MediaQuery.of(context).size;
+    return InkWell(
+      onTap: onPressed,
+      child: Stack(
+        children: [
+          Container(
+            width: double.infinity,
+            margin: EdgeInsets.only(top: 25),
+            padding: EdgeInsets.all(20.0),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(kAppRadius),
+                boxShadow: [kCardShadow]),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: size.width - 200,
+                  child: AppText(
+                    title,
+                    fontSize: 22,
+                    font: 'Poppins',
+                    fontWeight: FontWeight.w700,
                   ),
-                  SizedBox(width: 20),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.access_time,
-                        color: kTextColor,
-                        size: 16,
-                      ),
-                      SizedBox(width: 5),
-                      AppText(
-                        '2 person',
-                        color: kTextColor,
-                      ),
-                    ],
-                  ),
-                ],
-              )
-            ],
+                ),
+                Icon(Icons.grade, color: Colors.yellow[600]),
+                SizedBox(height: 10),
+                BriefInfoWidget(prepareTime, person)
+              ],
+            ),
           ),
-        ),
-        Positioned(
-            top: 10,
-            right: 20,
-            child: Image.asset(
-              'assets/images/haram1.png',
-              height: 120,
-              width: 120,
-            ))
-      ],
+          Positioned(
+              top: 10,
+              right: 20,
+              child: Image.asset(
+                imagePath,
+                height: 120,
+                width: 120,
+                fit: BoxFit.cover,
+              ))
+        ],
+      ),
     );
   }
 }
