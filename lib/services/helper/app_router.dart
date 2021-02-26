@@ -5,9 +5,10 @@ class AppRouting {
   static Route router(RouteSettings settings) {
     final arguments = settings.arguments;
     switch (settings.name) {
-      case SplashScreen.pageID:
+      case HomeScreen.pageID:
+        return MaterialPageRoute(builder: (_) => HomeScreen());
       default:
-        return SplashScreen.route();
+        return MaterialPageRoute(builder: (_) => SplashScreen());
     }
   }
 }
