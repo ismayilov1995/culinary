@@ -10,7 +10,6 @@ class BriefInfoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      // mainAxisSize: MainAxisSize.min,
       children: [
         Icon(
           Icons.access_time,

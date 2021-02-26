@@ -1,3 +1,4 @@
+import 'package:culinary_app/ui/screens/screens.dart';
 import 'package:culinary_app/ui/widgets/text_field.dart';
 import 'package:culinary_app/ui/widgets/widgets.dart';
 import 'package:flutter/cupertino.dart';
@@ -49,30 +50,37 @@ class _LatestRecipesRow extends StatelessWidget {
                 person: '6',
                 prepareTime: '60 min',
                 imagePath: 'assets/images/haram1.png',
+                onPressed: () => RecipeDetailScreen.route(
+                    context, 'Dovğa 3 baci dolmasi plovlu qarabasaq'),
               ),
               RecipeHorizontalCard(
                 'Stalichny',
                 person: '8',
                 prepareTime: '40 min',
                 imagePath: 'assets/images/haram2.png',
+                onPressed: () => RecipeDetailScreen.route(context, 'Stalichny'),
               ),
               RecipeHorizontalCard(
                 'Chicken Soup',
                 person: '4',
                 prepareTime: '1h 30m',
                 imagePath: 'assets/images/haram3.png',
+                onPressed: () =>
+                    RecipeDetailScreen.route(context, 'Chicken Soup'),
               ),
               RecipeHorizontalCard(
                 'Piti',
                 person: '2',
                 prepareTime: '3h',
                 imagePath: 'assets/images/haram4.png',
+                onPressed: () => RecipeDetailScreen.route(context, 'Piti'),
               ),
               RecipeHorizontalCard(
                 'Dolma',
                 person: '12',
                 prepareTime: '2h',
                 imagePath: 'assets/images/haram1.png',
+                onPressed: () => RecipeDetailScreen.route(context, 'Dolma'),
               ),
             ],
           ),
@@ -109,18 +117,21 @@ class _RecommendRecipesRow extends StatelessWidget {
                 person: '12',
                 prepareTime: '2h',
                 imagePath: 'assets/images/haram1.png',
+                onPressed: () => RecipeDetailScreen.route(context, 'Avocado'),
               ),
               RecommendCard(
                 'Bozbash',
                 person: '8',
                 prepareTime: '2h',
                 imagePath: 'assets/images/haram1.png',
+                onPressed: () => RecipeDetailScreen.route(context, 'Bozbash'),
               ),
               RecommendCard(
                 'Ayran',
                 person: '10',
                 prepareTime: '10 min',
                 imagePath: 'assets/images/haram1.png',
+                onPressed: () => RecipeDetailScreen.route(context, 'Ayran'),
               ),
             ],
           ),
@@ -152,19 +163,7 @@ class _UserWelcomeRow extends StatelessWidget {
               ),
             ],
           ),
-          Container(
-            height: 50,
-            width: 50,
-            decoration: BoxDecoration(
-                border: Border.all(width: 4, color: Colors.white),
-                boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 6)],
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(
-                      'https://i.pinimg.com/736x/89/46/30/89463056da62f4dbcb677c9310ad38bd.jpg',
-                    ))),
-          )
+          AppCircleAvatar()
         ],
       ),
     );
