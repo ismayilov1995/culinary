@@ -6,3 +6,5 @@ export 'recommend_card.dart';
 export 'recipe_horizontal_card.dart';
 export 'brief_info_widget.dart';
 export 'app_circle_avatar.dart';
+export 'single_card.dart';
+export 'ingredient_card.dart';
