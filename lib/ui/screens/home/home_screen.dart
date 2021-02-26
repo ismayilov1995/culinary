@@ -27,21 +27,103 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class _LatestRecipesRow extends StatelessWidget {
+class _UserWelcomeRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
+      child: ListTile(
+        title: AppText(
+          'Good Morning',
+          color: kTextColor,
+          fontSize: 14,
+        ),
+        subtitle: AppText(
+          'Sebastian Vettel',
+          color: Colors.black,
+          font: 'Pacifico',
+          fontSize: 26,
+        ),
+        trailing: AppCircleAvatar(),
+      ),
+    );
+  }
+}
+
+class _SearchRow extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: Row(
         children: [
-          AppText(
-            'New Recipe',
-            fontSize: 20,
-            font: 'Poppins',
-            fontWeight: FontWeight.w700,
+          Expanded(
+            child: AppTextField('Find recipes or chef',
+                prefixIcon: Icon(Icons.search), onChanged: (v) {}),
           ),
-          ListView(
+          SizedBox(width: 20),
+          SearchButton(
+            onPressed: () {},
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _RecommendRecipesRow extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SingleCardStruct('Recommended',
+            child: SizedBox(
+              height: 250,
+              child: ListView(
+                padding: EdgeInsets.only(left: 20.0),
+                scrollDirection: Axis.horizontal,
+                physics: BouncingScrollPhysics(),
+                children: [
+                  RecommendCard(
+                    'Avocado',
+                    person: '12',
+                    prepareTime: '2h',
+                    imagePath: 'assets/images/haram1.png',
+                    onPressed: () =>
+                        RecipeDetailScreen.route(context, 'Avocado'),
+                  ),
+                  RecommendCard(
+                    'Bozbash',
+                    person: '8',
+                    prepareTime: '2h',
+                    imagePath: 'assets/images/haram1.png',
+                    onPressed: () =>
+                        RecipeDetailScreen.route(context, 'Bozbash'),
+                  ),
+                  RecommendCard(
+                    'Ayran',
+                    person: '10',
+                    prepareTime: '10 min',
+                    imagePath: 'assets/images/haram1.png',
+                    onPressed: () => RecipeDetailScreen.route(context, 'Ayran'),
+                  ),
+                ],
+              ),
+            )),
+      ],
+    );
+  }
+}
+
+class _LatestRecipesRow extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SingleCardStruct('New Recipe',
+        padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: ListView(
             shrinkWrap: true,
             physics: ClampingScrollPhysics(),
             children: [
@@ -84,109 +166,6 @@ class _LatestRecipesRow extends StatelessWidget {
               ),
             ],
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class _RecommendRecipesRow extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: AppText(
-            'Recommended',
-            fontSize: 20,
-            font: 'Poppins',
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        SizedBox(
-          height: 250,
-          child: ListView(
-            padding: EdgeInsets.only(left: 20.0),
-            scrollDirection: Axis.horizontal,
-            physics: BouncingScrollPhysics(),
-            children: [
-              RecommendCard(
-                'Avocado',
-                person: '12',
-                prepareTime: '2h',
-                imagePath: 'assets/images/haram1.png',
-                onPressed: () => RecipeDetailScreen.route(context, 'Avocado'),
-              ),
-              RecommendCard(
-                'Bozbash',
-                person: '8',
-                prepareTime: '2h',
-                imagePath: 'assets/images/haram1.png',
-                onPressed: () => RecipeDetailScreen.route(context, 'Bozbash'),
-              ),
-              RecommendCard(
-                'Ayran',
-                person: '10',
-                prepareTime: '10 min',
-                imagePath: 'assets/images/haram1.png',
-                onPressed: () => RecipeDetailScreen.route(context, 'Ayran'),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _UserWelcomeRow extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AppText(
-                'Good Morning',
-                color: kTextColor,
-              ),
-              AppText(
-                'Sebastian Vettel',
-                font: 'Pacifico',
-                fontSize: 26,
-              ),
-            ],
-          ),
-          AppCircleAvatar()
-        ],
-      ),
-    );
-  }
-}
-
-class _SearchRow extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: AppTextField('Find recipes or chef',
-                prefixIcon: Icon(Icons.search), onChanged: (v) {}),
-          ),
-          SizedBox(width: 20),
-          SearchButton(
-            onPressed: () {},
-          ),
-        ],
-      ),
-    );
+        ));
   }
 }

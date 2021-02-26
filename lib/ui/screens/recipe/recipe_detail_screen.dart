@@ -21,12 +21,13 @@ class RecipeDetailScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: ListView(
+        physics: BouncingScrollPhysics(),
         children: [
           SizedBox(height: 60),
           _MealOverview(selectedRecipe),
           _ChefInformationCard(),
           _IngredientsRow(),
-          SizedBox(height: 60),
+          SizedBox(height: 40),
         ],
       ),
     );
@@ -111,6 +112,7 @@ class _IngredientsRow extends StatelessWidget {
         child: ListView(
           padding: EdgeInsets.only(left: 20.0),
           scrollDirection: Axis.horizontal,
+          physics: BouncingScrollPhysics(),
           children: [
             IngredientCard(),
             IngredientCard(),

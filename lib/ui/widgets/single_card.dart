@@ -2,9 +2,10 @@ import 'package:culinary_app/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class SingleCardStruct extends StatelessWidget {
-  SingleCardStruct(this.title, {@required this.child});
+  SingleCardStruct(this.title, {@required this.child, this.padding});
 
   final String title;
+  final EdgeInsets padding;
   final Widget child;
 
   @override
@@ -13,7 +14,7 @@ class SingleCardStruct extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: padding ?? EdgeInsets.all(20.0),
           child: AppText(
             title,
             fontSize: 20,
