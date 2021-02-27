@@ -14,15 +14,25 @@ class IngredientCard extends StatelessWidget {
         color: kTextFieldBg,
         borderRadius: BorderRadius.circular(kAppRadius),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Stack(
+        alignment: Alignment.bottomLeft,
         children: [
-          AppText('Avocado', fontSize: 16, fontWeight: FontWeight.w600),
-          AppText(
-            '1/2 fruit',
-            color: kTextColor,
-            fontSize: 12,
+          Image.asset(
+            'assets/images/egg.png',
+            height: 100,
+            width: 100,
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppText('Egg', fontSize: 16, fontWeight: FontWeight.w600),
+              AppText(
+                '1/2 fruit',
+                color: kTextColor,
+                fontSize: 12,
+              ),
+            ],
           ),
         ],
       ),

@@ -19,17 +19,41 @@ class RecipeDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: ListView(
-        physics: BouncingScrollPhysics(),
-        children: [
-          SizedBox(height: 60),
-          _MealOverview(selectedRecipe),
-          _ChefInformationCard(),
-          _IngredientsRow(),
-          SizedBox(height: 40),
-        ],
-      ),
+        backgroundColor: Colors.white,
+        body: _scaffoldBackground(
+            child: ListView(
+          physics: BouncingScrollPhysics(),
+          children: [
+            SizedBox(height: 60),
+            _MealOverview(selectedRecipe),
+            _ChefInformationCard(),
+            _IngredientsRow(),
+            SizedBox(height: 40),
+          ],
+        )));
+  }
+
+  Widget _scaffoldBackground({Widget child}) {
+    return Stack(
+      children: [
+        Container(
+            height: 200,
+            child: Image.asset(
+              'assets/images/haram1.png',
+              height: 400,
+              width: 400,
+              fit: BoxFit.cover,
+            )),
+        Container(
+          height: 200,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Colors.white.withOpacity(0), Colors.white])),
+        ),
+        child
+      ],
     );
   }
 }
