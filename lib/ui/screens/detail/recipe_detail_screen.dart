@@ -20,7 +20,11 @@ class RecipeDetailScreen extends StatelessWidget {
             child: ListView(
           physics: BouncingScrollPhysics(),
           children: [
-            SizedBox(height: 60),
+            AppBar(
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+              iconTheme: IconThemeData(color: kBgColor),
+            ),
             _MealOverview(selectedRecipe),
             _ChefInformationCard(),
             _IngredientsRow(),
