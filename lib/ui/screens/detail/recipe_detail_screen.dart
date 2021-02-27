@@ -1,9 +1,5 @@
-import 'package:culinary_app/ui/widgets/app_circle_avatar.dart';
-import 'package:culinary_app/ui/widgets/app_text.dart';
-import 'package:culinary_app/ui/widgets/brief_info_widget.dart';
-import 'package:culinary_app/ui/widgets/colors.dart';
-import 'package:culinary_app/ui/widgets/ingredient_card.dart';
-import 'package:culinary_app/ui/widgets/single_card.dart';
+import 'package:culinary_app/ui/screens/screens.dart';
+import 'package:culinary_app/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class RecipeDetailScreen extends StatelessWidget {
@@ -117,10 +113,8 @@ class _ChefInformationCard extends StatelessWidget {
           'Professional Chef',
           color: kTextColor,
         ),
-        trailing: IconButton(
-          icon: Icon(Icons.arrow_forward_ios),
-          onPressed: () {},
-        ),
+        trailing: Icon(Icons.arrow_forward_ios),
+        onTap: () => ChefDetailScreen.route(context, 'chefID'),
       ),
     );
   }

@@ -9,6 +9,8 @@ class AppRouting {
         return MaterialPageRoute(builder: (_) => HomeScreen());
       case RecipeDetailScreen.pageID:
         return MaterialPageRoute(builder: (_) => RecipeDetailScreen(arguments));
+      case ChefDetailScreen.pageID:
+        return MaterialPageRoute(builder: (_) => ChefDetailScreen(arguments));
       default:
         return MaterialPageRoute(builder: (_) => SplashScreen());
     }

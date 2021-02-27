@@ -2,11 +2,15 @@ import 'package:culinary_app/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class AppCircleAvatar extends StatelessWidget {
+  AppCircleAvatar({this.diameter = 50});
+
+  final double diameter;
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
-      width: 50,
+      height: diameter,
+      width: diameter,
       decoration: BoxDecoration(
           border: Border.all(width: 4, color: Colors.white),
           boxShadow: [kCardShadow],
