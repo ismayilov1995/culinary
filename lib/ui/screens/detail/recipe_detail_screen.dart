@@ -28,7 +28,7 @@ class RecipeDetailScreen extends StatelessWidget {
             _MealOverview(selectedRecipe),
             _ChefInformationCard(),
             _IngredientsRow(),
-            SizedBox(height: 40),
+            _PrepareRow(),
           ],
         )));
   }
@@ -144,6 +144,26 @@ class _IngredientsRow extends StatelessWidget {
             IngredientCard(),
             IngredientCard(),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _PrepareRow extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SingleCardStruct(
+      'Directions',
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20.0, 0, 20.0, 20.0),
+        child: AppText(
+          'Place pork chops in a multi-functional pressure cooker (such as Instant Pot®);\ntop with butter. Sprinkle onion soup mix over pork chops. Pour in apple juice.'
+          '\nClose and lock the lid. Select high pressure according to manufacturer\'s instructions; set timer for 5 minutes. Allow 10 to 15 minutes for pressure to build.'
+          '\nRelease pressure using the natural-release method according to manufacturer\'s instructions, 10 to 40 minutes.',
+          align: TextAlign.center,
+          font: 'Poppins',
+          fontSize: 16,
         ),
       ),
     );
