@@ -30,6 +30,8 @@ class RecipeResponse {
 }
 
 class Recipe {
+  static Recipe fromJSON(String str) => Recipe.fromMap(json.decode(str));
+
   Recipe({
     this.id,
     this.chef,

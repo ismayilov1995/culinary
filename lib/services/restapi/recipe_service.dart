@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:culinary_app/models/models.dart';
 import 'package:culinary_app/services/base/bases.dart';
 import 'package:culinary_app/services/dio/dio.dart';
@@ -19,15 +21,15 @@ class RecipeService extends RecipeBase {
   }
 
   @override
-  Future<bool> delete(String slug) {
-    // TODO: implement delete
-    throw UnimplementedError();
+  Future<bool> delete(String slug) async {
+    final res = await dio.delete('$path/detail/$slug');
+    return jsonDecode(res.toString())['message'];
   }
 
   @override
-  Future<Recipe> recipe(String slug) {
-    // TODO: implement recipe
-    throw UnimplementedError();
+  Future<Recipe> recipe(String slug) async {
+    final res = await dio.get('$path/detail/$slug');
+    return Recipe.fromJSON(res.toString());
   }
 
   @override
