@@ -2,7 +2,7 @@ import 'package:culinary_app/services/base/bases.dart';
 import 'package:dio/dio.dart';
 
 class DioGlobal {
-  Dio dio = Dio(BaseOptions(baseUrl: BaseUrl.releaseUrl + 'api/'));
+  Dio dio = Dio(BaseOptions(baseUrl: BaseUrl.restUrl + 'api/'));
   static DioGlobal _dioGlobal;
 
   DioGlobal._internal();

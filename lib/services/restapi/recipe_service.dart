@@ -1,3 +1,4 @@
+import 'package:culinary_app/models/models.dart';
 import 'package:culinary_app/services/base/bases.dart';
 import 'package:culinary_app/services/dio/dio.dart';
 import 'package:dio/dio.dart';
@@ -24,14 +25,14 @@ class RecipeService extends RecipeBase {
   }
 
   @override
-  Future recipe(String slug) {
+  Future<Recipe> recipe(String slug) {
     // TODO: implement recipe
     throw UnimplementedError();
   }
 
   @override
-  Future recipes() async {
+  Future<RecipeResponse> recipes() async {
     final res = await dio.get(path);
-    print(res);
+    return RecipeResponse.recipeResponseFromMap(res.toString());
   }
 }

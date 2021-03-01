@@ -1,3 +1,4 @@
+import 'package:culinary_app/models/models.dart';
 import 'package:culinary_app/services/base/bases.dart';
 import 'package:culinary_app/services/restapi/services.dart';
 
@@ -16,17 +17,11 @@ class RecipeRepository extends RecipeBase {
   RecipeService _service = RecipeService();
 
   @override
-  Future<bool> delete(String slug) {
-    // TODO: implement delete
-    throw UnimplementedError();
-  }
+  Future<bool> delete(String slug) => _service.delete(slug);
 
   @override
-  Future recipe(String slug) {
-    // TODO: implement recipe
-    throw UnimplementedError();
-  }
+  Future<Recipe> recipe(String slug) => _service.recipe(slug);
 
   @override
-  Future recipes() => _service.recipes();
+  Future<RecipeResponse> recipes() => _service.recipes();
 }
