@@ -30,7 +30,8 @@ class RecipeResponse {
 }
 
 class Recipe {
-  static Recipe fromJSON(String str) => Recipe.fromMap(json.decode(str));
+  static Recipe fromJSON(String str) =>
+      Recipe.fromMap(json.decode(str)['recipe']);
 
   Recipe({
     this.id,
@@ -65,7 +66,7 @@ class Recipe {
         createdAt: DateTime.parse(json["createdAt"]),
         direction: json["direction"],
         image: List<String>.from(json["image"].map((x) => x)),
-        ingredients: json["ingredients"],
+        ingredients: json["ingredients"] != null ? json["ingredients"] : [],
         overview: json["overview"],
         person: json["person"],
         slug: json["slug"],

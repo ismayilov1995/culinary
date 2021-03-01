@@ -1,6 +1,9 @@
+import 'package:culinary_app/models/models.dart';
 import 'package:culinary_app/ui/screens/screens.dart';
 import 'package:culinary_app/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:culinary_app/blocs/blocs.dart';
 
 class RecipeDetailScreen extends StatelessWidget {
   static const pageID = '/recipe';
@@ -14,22 +17,31 @@ class RecipeDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<RecipeBloc>().add(LoadRecipe(this.selectedRecipe));
     return Scaffold(
         backgroundColor: Colors.white,
-        body: _scaffoldBackground(
-            child: ListView(
-          physics: BouncingScrollPhysics(),
-          children: [
-            AppBar(
-              elevation: 0,
-              backgroundColor: Colors.transparent,
-              iconTheme: IconThemeData(color: kBgColor),
-            ),
-            _MealOverview(selectedRecipe),
-            _ChefInformationCard(),
-            _IngredientsRow(),
-            _PrepareRow(),
-          ],
+        body: _scaffoldBackground(child: BlocBuilder<RecipeBloc, RecipeState>(
+          builder: (context, state) {
+            if (state is SuccessLoadRecipe) {
+              return ListView(
+                physics: BouncingScrollPhysics(),
+                children: [
+                  AppBar(
+                    elevation: 0,
+                    backgroundColor: Colors.transparent,
+                    iconTheme: IconThemeData(color: kBgColor),
+                  ),
+                  _MealOverview(state.recipe),
+                  _ChefInformationCard(state.recipe.chef),
+                  _IngredientsRow(),
+                  _PrepareRow(state.recipe.direction),
+                ],
+              );
+            } else if (state is FailLoadRecipe) {
+              return Center(child: Text(state.error));
+            }
+            return Center(child: CircularProgressIndicator());
+          },
         )));
   }
 
@@ -59,9 +71,9 @@ class RecipeDetailScreen extends StatelessWidget {
 }
 
 class _MealOverview extends StatelessWidget {
-  _MealOverview(this.title);
+  _MealOverview(this.recipe);
 
-  final String title;
+  final Recipe recipe;
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +84,7 @@ class _MealOverview extends StatelessWidget {
         children: [
           Image.asset('assets/images/haram1.png', height: size.width * 0.6),
           AppText(
-            title,
+            recipe.title,
             font: 'Poppins',
             fontSize: 28,
             fontWeight: FontWeight.w700,
@@ -84,12 +96,15 @@ class _MealOverview extends StatelessWidget {
                   .map((e) => Icon(Icons.grade, color: Colors.yellow[600]))
                   .toList()),
           AppText(
-            '\"Even kids will love this quick and easy fried rice, perfect for a weeknight meal. See notes section for Low FODMAP diet tip.\"',
+            recipe.overview,
             color: kTextColor,
             align: TextAlign.center,
           ),
           SizedBox(height: 10.0),
-          Center(child: BriefInfoWidget('60 min', '12', color: Colors.black)),
+          Center(
+              child: BriefInfoWidget(
+                  '${recipe.cookingTime} min', recipe.person.toString(),
+                  color: Colors.black)),
         ],
       ),
     );
@@ -97,6 +112,10 @@ class _MealOverview extends StatelessWidget {
 }
 
 class _ChefInformationCard extends StatelessWidget {
+  _ChefInformationCard(this.chef);
+
+  final Chef chef;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -109,16 +128,16 @@ class _ChefInformationCard extends StatelessWidget {
       child: ListTile(
         leading: AppCircleAvatar(),
         title: AppText(
-          'Sebastian Vettel',
+          chef.name,
           font: 'Pacifico',
           fontSize: 20,
         ),
         subtitle: AppText(
-          'Professional Chef',
+          chef.title,
           color: kTextColor,
         ),
         trailing: Icon(Icons.arrow_forward_ios),
-        onTap: () => ChefDetailScreen.route(context, 'chefID'),
+        onTap: () => ChefDetailScreen.route(context, chef.email),
       ),
     );
   }
@@ -151,16 +170,19 @@ class _IngredientsRow extends StatelessWidget {
 }
 
 class _PrepareRow extends StatelessWidget {
+  _PrepareRow(this.direction);
+
+  final String direction;
+
   @override
   Widget build(BuildContext context) {
     return SingleCardStruct(
       'Directions',
+      padding: EdgeInsets.only(left: 20.0, top: 20.0),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(20.0, 0, 20.0, 20.0),
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
         child: AppText(
-          'Place pork chops in a multi-functional pressure cooker (such as Instant Pot®);\ntop with butter. Sprinkle onion soup mix over pork chops. Pour in apple juice.'
-          '\nClose and lock the lid. Select high pressure according to manufacturer\'s instructions; set timer for 5 minutes. Allow 10 to 15 minutes for pressure to build.'
-          '\nRelease pressure using the natural-release method according to manufacturer\'s instructions, 10 to 40 minutes.',
+          direction,
           align: TextAlign.center,
           font: 'Poppins',
           fontSize: 16,
