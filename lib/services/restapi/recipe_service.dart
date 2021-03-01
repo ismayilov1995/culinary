@@ -33,8 +33,10 @@ class RecipeService extends RecipeBase {
   }
 
   @override
-  Future<RecipeResponse> recipes() async {
-    final res = await dio.get(path);
+  Future<RecipeResponse> recipes({Filter filter}) async {
+    var query = Map();
+    if (filter != null) query = filter.toMap();
+    final res = await dio.get(path, queryParameters: query);
     return RecipeResponse.recipeResponseFromMap(res.toString());
   }
 }

@@ -23,5 +23,6 @@ class RecipeRepository extends RecipeBase {
   Future<Recipe> recipe(String slug) => _service.recipe(slug);
 
   @override
-  Future<RecipeResponse> recipes() => _service.recipes();
+  Future<RecipeResponse> recipes({Filter filter}) =>
+      _service.recipes(filter: filter);
 }
