@@ -1,3 +1,4 @@
+import 'package:culinary_app/models/models.dart';
 import 'package:culinary_app/ui/screens/screens.dart';
 import 'package:culinary_app/ui/widgets/widgets.dart';
 import 'package:flutter/cupertino.dart';
@@ -84,7 +85,7 @@ class _RecommendRecipesRow extends StatelessWidget {
                 height: 250,
                 child: ListView.builder(
                     shrinkWrap: true,
-                    physics: ClampingScrollPhysics(),
+                    physics: BouncingScrollPhysics(),
                     padding: EdgeInsets.only(left: 20.0),
                     scrollDirection: Axis.horizontal,
                     itemCount: state.recipeResponse.recipes.length,
@@ -115,14 +116,32 @@ class _LatestRecipesRow extends StatelessWidget {
     return BlocBuilder<RecipeBloc, RecipeState>(
       builder: (context, state) {
         if (state is SuccessLoadRecipes) {
+          final loaded = state.recipeResponse.recipes.length;
           return SingleCardStruct('New Recipe',
               padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0),
               child: ListView.builder(
                   shrinkWrap: true,
                   physics: ClampingScrollPhysics(),
-                  padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 20.0),
-                  itemCount: state.recipeResponse.recipes.length,
+                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  itemCount: loaded + 1,
                   itemBuilder: (context, i) {
+                    if (loaded == i) {
+                      return FlatButton(
+                        padding: EdgeInsets.symmetric(vertical: 40.0),
+                        child: Text('Load more'),
+                        onPressed: () {
+                          if (loaded == state.recipeResponse.total) {
+                            Scaffold.of(context)
+                              ..hideCurrentSnackBar()
+                              ..showSnackBar(SnackBar(
+                                  content: Text('Sorry, no more recipes')));
+                          }
+                          context
+                              .read<RecipeBloc>()
+                              .add(LoadRecipes(filter: Filter(skip: loaded)));
+                        },
+                      );
+                    }
                     final r = state.recipeResponse.recipes[i];
                     return RecipeHorizontalCard(
                       r.title,

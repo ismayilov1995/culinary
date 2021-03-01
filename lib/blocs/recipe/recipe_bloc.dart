@@ -27,7 +27,12 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
 
   Stream<RecipeState> _mapLoadRecipes(LoadRecipes event) async* {
     try {
-      final recipeResponse = await _repository.recipes(filter: event.filter);
+      var recipeResponse = await _repository.recipes(filter: event.filter);
+      if (event.filter != null) {
+        final s = state as SuccessLoadRecipes;
+        s.recipeResponse.recipes.addAll(recipeResponse.recipes);
+        recipeResponse.recipes = s.recipeResponse.recipes;
+      }
       yield SuccessLoadRecipes(recipeResponse);
     } catch (e) {
       print(e);
