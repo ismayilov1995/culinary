@@ -6,6 +6,17 @@ class RecipeService extends RecipeBase {
   Dio dio = DioGlobal().dio;
   final path = 'recipe';
 
+  RecipeService._internal();
+
+  static RecipeService _recipeService;
+
+  factory RecipeService() {
+    if (_recipeService == null) {
+      _recipeService = RecipeService._internal();
+    }
+    return _recipeService;
+  }
+
   @override
   Future<bool> delete(String slug) {
     // TODO: implement delete
