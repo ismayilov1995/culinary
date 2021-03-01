@@ -30,6 +30,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       final recipeResponse = await _repository.recipes(filter: event.filter);
       yield SuccessLoadRecipes(recipeResponse);
     } catch (e) {
+      print(e);
       yield FailLoadRecipes('error while load');
     }
   }

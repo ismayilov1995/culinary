@@ -34,7 +34,7 @@ class RecipeService extends RecipeBase {
 
   @override
   Future<RecipeResponse> recipes({Filter filter}) async {
-    var query = Map();
+    Map<String, dynamic> query = Map();
     if (filter != null) query = filter.toMap();
     final res = await dio.get(path, queryParameters: query);
     return RecipeResponse.recipeResponseFromMap(res.toString());

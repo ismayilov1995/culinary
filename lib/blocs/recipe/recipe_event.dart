@@ -8,7 +8,7 @@ abstract class RecipeEvent extends Equatable {
 }
 
 class LoadRecipes extends RecipeEvent {
-  LoadRecipes(this.filter);
+  LoadRecipes({this.filter});
 
   final Filter filter;
 

@@ -2,12 +2,15 @@ import 'package:culinary_app/ui/screens/screens.dart';
 import 'package:culinary_app/ui/widgets/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:culinary_app/blocs/blocs.dart';
 
 class HomeScreen extends StatelessWidget {
   static const pageID = '/';
 
   @override
   Widget build(BuildContext context) {
+    context.read<RecipeBloc>().add(LoadRecipes());
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -73,44 +76,35 @@ class _SearchRow extends StatelessWidget {
 class _RecommendRecipesRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SingleCardStruct('Recommended',
-            child: SizedBox(
-              height: 250,
-              child: ListView(
-                padding: EdgeInsets.only(left: 20.0),
-                scrollDirection: Axis.horizontal,
-                physics: BouncingScrollPhysics(),
-                children: [
-                  RecommendCard(
-                    'Avocado',
-                    person: '12',
-                    prepareTime: '2h',
-                    imagePath: 'assets/images/haram1.png',
-                    onPressed: () =>
-                        RecipeDetailScreen.route(context, 'Avocado'),
-                  ),
-                  RecommendCard(
-                    'Bozbash',
-                    person: '8',
-                    prepareTime: '2h',
-                    imagePath: 'assets/images/haram1.png',
-                    onPressed: () =>
-                        RecipeDetailScreen.route(context, 'Bozbash'),
-                  ),
-                  RecommendCard(
-                    'Ayran',
-                    person: '10',
-                    prepareTime: '10 min',
-                    imagePath: 'assets/images/haram1.png',
-                    onPressed: () => RecipeDetailScreen.route(context, 'Ayran'),
-                  ),
-                ],
-              ),
-            )),
-      ],
+    return BlocBuilder<RecipeBloc, RecipeState>(
+      builder: (context, state) {
+        if (state is SuccessLoadRecipes) {
+          return SingleCardStruct('Recommended',
+              child: SizedBox(
+                height: 250,
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: ClampingScrollPhysics(),
+                    padding: EdgeInsets.only(left: 20.0),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: state.recipeResponse.recipes.length,
+                    itemBuilder: (context, i) {
+                      final r = state.recipeResponse.recipes[i];
+                      return RecommendCard(
+                        r.title,
+                        person: r.person.toString(),
+                        prepareTime: '${r.cookingTime} min',
+                        imagePath: 'assets/images/haram1.png',
+                        onPressed: () =>
+                            RecipeDetailScreen.route(context, r.slug),
+                      );
+                    }),
+              ));
+        } else if (state is FailLoadRecipes) {
+          return Center(child: Text(state.error));
+        }
+        return Center(child: CircularProgressIndicator());
+      },
     );
   }
 }
@@ -118,53 +112,32 @@ class _RecommendRecipesRow extends StatelessWidget {
 class _LatestRecipesRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SingleCardStruct('New Recipe',
-        padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: ListView(
-            shrinkWrap: true,
-            physics: ClampingScrollPhysics(),
-            children: [
-              RecipeHorizontalCard(
-                'Dovğa 3 baci dolmasi plovlu qarabasaq',
-                person: '6',
-                prepareTime: '60 min',
-                imagePath: 'assets/images/haram1.png',
-                onPressed: () => RecipeDetailScreen.route(
-                    context, 'Dovğa 3 baci dolmasi plovlu qarabasaq'),
-              ),
-              RecipeHorizontalCard(
-                'Stalichny',
-                person: '8',
-                prepareTime: '40 min',
-                imagePath: 'assets/images/haram2.png',
-                onPressed: () => RecipeDetailScreen.route(context, 'Stalichny'),
-              ),
-              RecipeHorizontalCard(
-                'Chicken Soup',
-                person: '4',
-                prepareTime: '1h 30m',
-                imagePath: 'assets/images/haram3.png',
-                onPressed: () =>
-                    RecipeDetailScreen.route(context, 'Chicken Soup'),
-              ),
-              RecipeHorizontalCard(
-                'Piti',
-                person: '2',
-                prepareTime: '3h',
-                imagePath: 'assets/images/haram4.png',
-                onPressed: () => RecipeDetailScreen.route(context, 'Piti'),
-              ),
-              RecipeHorizontalCard(
-                'Dolma',
-                person: '12',
-                prepareTime: '2h',
-                imagePath: 'assets/images/haram1.png',
-                onPressed: () => RecipeDetailScreen.route(context, 'Dolma'),
-              ),
-            ],
-          ),
-        ));
+    return BlocBuilder<RecipeBloc, RecipeState>(
+      builder: (context, state) {
+        if (state is SuccessLoadRecipes) {
+          return SingleCardStruct('New Recipe',
+              padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0),
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: ClampingScrollPhysics(),
+                  padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 20.0),
+                  itemCount: state.recipeResponse.recipes.length,
+                  itemBuilder: (context, i) {
+                    final r = state.recipeResponse.recipes[i];
+                    return RecipeHorizontalCard(
+                      r.title,
+                      person: r.person.toString(),
+                      prepareTime: '${r.cookingTime} min',
+                      imagePath: 'assets/images/haram1.png',
+                      onPressed: () =>
+                          RecipeDetailScreen.route(context, r.slug),
+                    );
+                  }));
+        } else if (state is FailLoadRecipes) {
+          return Center(child: Text(state.error));
+        }
+        return Center(child: CircularProgressIndicator());
+      },
+    );
   }
 }
