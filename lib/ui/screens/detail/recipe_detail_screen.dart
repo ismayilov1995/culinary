@@ -4,6 +4,7 @@ import 'package:culinary_app/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:culinary_app/blocs/blocs.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class RecipeDetailScreen extends StatelessWidget {
   static const pageID = '/recipe';
@@ -35,6 +36,7 @@ class RecipeDetailScreen extends StatelessWidget {
                   _ChefInformationCard(state.recipe.chef),
                   _IngredientsRow(),
                   _PrepareRow(state.recipe.direction),
+                  LogoHorizontal(),
                 ],
               );
             } else if (state is FailLoadRecipe) {

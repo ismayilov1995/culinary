@@ -9,3 +9,4 @@ export 'app_circle_avatar.dart';
 export 'single_card.dart';
 export 'ingredient_card.dart';
 export 'text_field.dart';
+export 'logo_horizontal.dart';
