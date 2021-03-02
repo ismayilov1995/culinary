@@ -21,45 +21,47 @@ class RecipeDetailScreen extends StatelessWidget {
     context.read<RecipeBloc>().add(LoadRecipe(this.selectedRecipe));
     return Scaffold(
         backgroundColor: Colors.white,
-        body: _scaffoldBackground(child: BlocBuilder<RecipeBloc, RecipeState>(
+        body: BlocBuilder<RecipeBloc, RecipeState>(
           builder: (context, state) {
             if (state is SuccessLoadRecipe) {
-              return ListView(
-                physics: BouncingScrollPhysics(),
-                children: [
-                  AppBar(
-                    elevation: 0,
-                    backgroundColor: Colors.transparent,
-                    iconTheme: IconThemeData(color: kBgColor),
-                  ),
-                  _MealOverview(state.recipe),
-                  _ChefInformationCard(state.recipe.chef),
-                  _IngredientsRow(),
-                  _PrepareRow(state.recipe.direction),
-                  LogoHorizontal(),
-                ],
-              );
+              return _scaffoldBackground(
+                  image: state.recipe.mainImage,
+                  child: ListView(
+                    physics: BouncingScrollPhysics(),
+                    children: [
+                      AppBar(
+                        elevation: 0,
+                        backgroundColor: Colors.transparent,
+                        iconTheme: IconThemeData(color: kBgColor),
+                      ),
+                      _MealOverview(state.recipe),
+                      _ChefInformationCard(state.recipe.chef),
+                      _IngredientsRow(),
+                      _PrepareRow(state.recipe.direction),
+                      LogoHorizontal(),
+                    ],
+                  ));
             } else if (state is FailLoadRecipe) {
               return Center(child: Text(state.error));
             }
             return Center(child: CircularProgressIndicator());
           },
-        )));
+        ));
   }
 
-  Widget _scaffoldBackground({Widget child}) {
+  Widget _scaffoldBackground({String image, Widget child}) {
     return Stack(
       children: [
         Container(
-            height: 200,
-            child: Image.asset(
-              'assets/images/haram1.png',
-              height: 400,
-              width: 400,
+            height: 300,
+            child: Image.network(
+              image,
+              height: 300,
+              width: double.infinity,
               fit: BoxFit.cover,
             )),
         Container(
-          height: 200,
+          height: 300,
           decoration: BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment.topCenter,
@@ -84,7 +86,16 @@ class _MealOverview extends StatelessWidget {
       padding: const EdgeInsets.all(20.0),
       child: Column(
         children: [
-          Image.asset('assets/images/haram1.png', height: size.width * 0.6),
+          Container(
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(width: 6, color: Colors.white),
+                boxShadow: [kCardShadow]),
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(size.width * 0.3),
+                child:
+                    Image.network(recipe.mainImage, height: size.width * 0.6)),
+          ),
           AppText(
             recipe.title,
             font: 'Poppins',

@@ -94,34 +94,6 @@ class _ChefsRecipes extends StatelessWidget {
             onPressed: () => RecipeDetailScreen.route(
                 context, 'Dovğa 3 baci dolmasi plovlu qarabasaq'),
           ),
-          RecipeHorizontalCard(
-            'Stalichny',
-            person: '8',
-            prepareTime: '40 min',
-            imagePath: 'assets/images/haram2.png',
-            onPressed: () => RecipeDetailScreen.route(context, 'Stalichny'),
-          ),
-          RecipeHorizontalCard(
-            'Chicken Soup',
-            person: '4',
-            prepareTime: '1h 30m',
-            imagePath: 'assets/images/haram3.png',
-            onPressed: () => RecipeDetailScreen.route(context, 'Chicken Soup'),
-          ),
-          RecipeHorizontalCard(
-            'Piti',
-            person: '2',
-            prepareTime: '3h',
-            imagePath: 'assets/images/haram4.png',
-            onPressed: () => RecipeDetailScreen.route(context, 'Piti'),
-          ),
-          RecipeHorizontalCard(
-            'Dolma',
-            person: '12',
-            prepareTime: '2h',
-            imagePath: 'assets/images/haram1.png',
-            onPressed: () => RecipeDetailScreen.route(context, 'Dolma'),
-          ),
         ],
       ),
     );
