@@ -33,21 +33,41 @@ class RecommendCard extends StatelessWidget {
             child: Stack(
               children: [
                 Positioned(
-                  top: 10,
+                  top: 12,
                   left: 40,
-                  child: Image.asset(imagePath, width: size.width * 0.4),
+                  child: Container(
+                    decoration:
+                        BoxDecoration(shape: BoxShape.circle, boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.5),
+                        blurRadius: 6,
+                        offset: Offset(-6, 0),
+                      ),
+                    ]),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(size.width * 0.2),
+                      child: Image.network(imagePath, width: size.width * 0.4),
+                    ),
+                  ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 10.0, bottom: 10.0),
+                  padding: const EdgeInsets.only(
+                      left: 10.0, bottom: 10.0, right: 10.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      AppText(
-                        title,
-                        fontSize: 26,
-                        color: Colors.white,
-                      ),
+                      Text(title,
+                          style: TextStyle(
+                              fontSize: 22,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              shadows: [
+                                Shadow(
+                                    color: Colors.black.withOpacity(0.5),
+                                    blurRadius: 4,
+                                    offset: Offset(2, -1))
+                              ])),
                       BriefInfoWidget(prepareTime, person, color: Colors.white)
                     ],
                   ),

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:culinary_app/services/base/bases.dart';
+
 import 'models.dart';
 
 class RecipeResponse {
@@ -33,6 +35,8 @@ class Recipe {
   static Recipe fromJSON(String str) =>
       Recipe.fromMap(json.decode(str)['recipe']);
 
+  final _imageUrlRoot = BaseUrl.restUrl + 'images/recipe/';
+
   Recipe({
     this.id,
     this.chef,
@@ -58,6 +62,8 @@ class Recipe {
   int person;
   String slug;
   String title;
+
+  String get mainImage => _imageUrlRoot + image.first;
 
   factory Recipe.fromMap(Map<String, dynamic> json) => Recipe(
         id: json["_id"],

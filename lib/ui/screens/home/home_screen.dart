@@ -95,7 +95,7 @@ class _RecommendRecipesRow extends StatelessWidget {
                         r.title,
                         person: r.person.toString(),
                         prepareTime: '${r.cookingTime} min',
-                        imagePath: 'assets/images/haram1.png',
+                        imagePath: r.mainImage,
                         onPressed: () =>
                             RecipeDetailScreen.route(context, r.slug),
                       );
@@ -147,7 +147,7 @@ class _LatestRecipesRow extends StatelessWidget {
                       r.title,
                       person: r.person.toString(),
                       prepareTime: '${r.cookingTime} min',
-                      imagePath: 'assets/images/haram1.png',
+                      imagePath: r.mainImage,
                       onPressed: () =>
                           RecipeDetailScreen.route(context, r.slug),
                     );

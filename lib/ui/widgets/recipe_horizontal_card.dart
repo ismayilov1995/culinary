@@ -49,11 +49,21 @@ class RecipeHorizontalCard extends StatelessWidget {
           Positioned(
               top: 10,
               right: 20,
-              child: Image.asset(
-                imagePath,
-                height: 120,
-                width: 120,
-                fit: BoxFit.cover,
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(width: 4, color: Colors.white),
+                  boxShadow: [kCardShadow],
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(60.0),
+                  child: Image.network(
+                    imagePath,
+                    height: 110,
+                    width: 110,
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ))
         ],
       ),
