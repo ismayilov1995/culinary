@@ -4,7 +4,6 @@ import 'package:culinary_app/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:culinary_app/blocs/blocs.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class RecipeDetailScreen extends StatelessWidget {
   static const pageID = '/recipe';
@@ -139,7 +138,9 @@ class _ChefInformationCard extends StatelessWidget {
         boxShadow: [kCardShadow],
       ),
       child: ListTile(
-        leading: AppCircleAvatar(),
+        leading: AppCircleAvatar(
+          imagePath: chef.avatar,
+        ),
         title: AppText(
           chef.name,
           font: 'Pacifico',

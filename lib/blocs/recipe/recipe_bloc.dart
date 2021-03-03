@@ -22,6 +22,8 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       yield* _mapLoadRecipes(event);
     } else if (event is LoadRecipe) {
       yield* _mapLoadRecipe(event);
+    } else if (event is LoadChefsRecipes) {
+      yield* _mapLoadChefsRecipes(event);
     }
   }
 
@@ -47,6 +49,16 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     } catch (e) {
       print(e);
       yield FailLoadRecipe('error while load');
+    }
+  }
+
+  Stream<RecipeState> _mapLoadChefsRecipes(LoadChefsRecipes event) async* {
+    try {
+      final recipes = await _repository.recipes(filter: Filter(chef: event.email));
+      yield SuccessLoadChefsRecipes(recipes);
+    } catch (e) {
+      print(e);
+      yield FailLoadChefsRecipes('error while load');
     }
   }
 

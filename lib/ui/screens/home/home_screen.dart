@@ -1,4 +1,3 @@
-import 'package:culinary_app/models/models.dart';
 import 'package:culinary_app/ui/screens/screens.dart';
 import 'package:culinary_app/ui/widgets/widgets.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,7 +10,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<RecipeBloc>().add(LoadRecipes());
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -22,7 +20,7 @@ class HomeScreen extends StatelessWidget {
             _UserWelcomeRow(),
             _SearchRow(),
             _RecommendRecipesRow(),
-            _LatestRecipesRow(),
+            RecipesListView(),
           ],
         ),
       ),
@@ -47,7 +45,10 @@ class _UserWelcomeRow extends StatelessWidget {
           font: 'Pacifico',
           fontSize: 26,
         ),
-        trailing: AppCircleAvatar(),
+        trailing: AppCircleAvatar(
+          imagePath:
+              'https://static.wikia.nocookie.net/queen-of-the-south/images/e/e6/Kelly_anne_sacar_con_sifron_el_mar.jpg/revision/latest/top-crop/width/220/height/220?cb=20180718062632',
+        ),
       ),
     );
   }
@@ -101,57 +102,6 @@ class _RecommendRecipesRow extends StatelessWidget {
                       );
                     }),
               ));
-        } else if (state is FailLoadRecipes) {
-          return Center(child: Text(state.error));
-        }
-        return Center(child: CircularProgressIndicator());
-      },
-    );
-  }
-}
-
-class _LatestRecipesRow extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<RecipeBloc, RecipeState>(
-      builder: (context, state) {
-        if (state is SuccessLoadRecipes) {
-          final loaded = state.recipeResponse.recipes.length;
-          return SingleCardStruct('New Recipe',
-              padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0),
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  physics: ClampingScrollPhysics(),
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
-                  itemCount: loaded + 1,
-                  itemBuilder: (context, i) {
-                    if (loaded == i) {
-                      return FlatButton(
-                        padding: EdgeInsets.symmetric(vertical: 40.0),
-                        child: Text('Load more'),
-                        onPressed: () {
-                          if (loaded == state.recipeResponse.total) {
-                            Scaffold.of(context)
-                              ..hideCurrentSnackBar()
-                              ..showSnackBar(SnackBar(
-                                  content: Text('Sorry, no more recipes')));
-                          }
-                          context
-                              .read<RecipeBloc>()
-                              .add(LoadRecipes(filter: Filter(skip: loaded)));
-                        },
-                      );
-                    }
-                    final r = state.recipeResponse.recipes[i];
-                    return RecipeHorizontalCard(
-                      r.title,
-                      person: r.person.toString(),
-                      prepareTime: '${r.cookingTime} min',
-                      imagePath: r.mainImage,
-                      onPressed: () =>
-                          RecipeDetailScreen.route(context, r.slug),
-                    );
-                  }));
         } else if (state is FailLoadRecipes) {
           return Center(child: Text(state.error));
         }

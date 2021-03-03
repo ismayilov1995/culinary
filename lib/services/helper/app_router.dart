@@ -17,7 +17,14 @@ class AppRouting {
                 create: (context) => RecipeBloc(),
                 child: RecipeDetailScreen(arguments)));
       case ChefDetailScreen.pageID:
-        return MaterialPageRoute(builder: (_) => ChefDetailScreen(arguments));
+        return MaterialPageRoute(
+            builder: (_) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider(create: (context) => ChefBloc()),
+                    BlocProvider(create: (context) => RecipeBloc()),
+                  ],
+                  child: ChefDetailScreen(arguments),
+                ));
       default:
         return MaterialPageRoute(builder: (_) => SplashScreen());
     }

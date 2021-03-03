@@ -24,3 +24,12 @@ class LoadRecipe extends RecipeEvent {
   @override
   List<Object> get props => [slug];
 }
+
+class LoadChefsRecipes extends RecipeEvent {
+  LoadChefsRecipes(this.email);
+
+  final String email;
+
+  @override
+  List<Object> get props => [email];
+}
