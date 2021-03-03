@@ -25,6 +25,11 @@ class AppRouting {
                   ],
                   child: ChefDetailScreen(arguments),
                 ));
+      case LoginScreen.pageID:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+              create: (context) => LoginCubit(), child: LoginScreen()),
+        );
       default:
         return MaterialPageRoute(builder: (_) => SplashScreen());
     }

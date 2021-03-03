@@ -45,12 +45,46 @@ class _UserWelcomeRow extends StatelessWidget {
           font: 'Pacifico',
           fontSize: 26,
         ),
-        trailing: AppCircleAvatar(
-          imagePath:
-              'https://static.wikia.nocookie.net/queen-of-the-south/images/e/e6/Kelly_anne_sacar_con_sifron_el_mar.jpg/revision/latest/top-crop/width/220/height/220?cb=20180718062632',
+        trailing: PopupMenuButton(
+          child: AppCircleAvatar(
+            imagePath:
+                'https://static.wikia.nocookie.net/queen-of-the-south/images/e/e6/Kelly_anne_sacar_con_sifron_el_mar.jpg/revision/latest/top-crop/width/220/height/220?cb=20180718062632',
+          ),
+          onSelected: (v) => _onMenuItemSelect(context, v),
+          itemBuilder: (context) => [
+            PopupMenuItem(
+              child: Text('Go to profile'),
+              value: 0,
+            ),
+            PopupMenuItem(
+              child: Text('Login'),
+              value: 1,
+            ),
+            PopupMenuItem(
+              child: Text('Create account'),
+              value: 2,
+            ),
+            PopupMenuItem(
+              child: Text('Logout'),
+              value: 3,
+            ),
+          ],
         ),
       ),
     );
+  }
+
+  void _onMenuItemSelect(BuildContext context, int v) {
+    switch (v) {
+      case 0:
+        ChefDetailScreen.route(context, 'ismayilov1995@gmail.com');
+        break;
+      case 1:
+      case 2:
+      case 3:
+        LoginScreen.route(context);
+        break;
+    }
   }
 }
 

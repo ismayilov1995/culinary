@@ -26,4 +26,30 @@ class ChefService extends ChefBase {
     final res = await dio.get('$path$p');
     return Chef.fromMap(jsonDecode(res.toString())['chef']);
   }
+
+  @override
+  Future<bool> forgot() {
+    // TODO: implement forgot
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Chef> login({String email, String password}) async {
+    final res = await dio
+        .post('auth/login', data: {'email': email, 'password': password});
+    print(res.toString());
+    return Chef();
+  }
+
+  @override
+  Future<Chef> logout({bool fromAll}) {
+    // TODO: implement logout
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Chef> register({Chef chef}) {
+    // TODO: implement register
+    throw UnimplementedError();
+  }
 }

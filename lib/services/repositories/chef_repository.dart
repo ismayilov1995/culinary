@@ -25,4 +25,27 @@ class ChefRepository extends ChefBase {
     }
     return cachedChef;
   }
+
+  @override
+  Future<bool> forgot() {
+    // TODO: implement forgot
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Chef> login({String email, String password}) {
+    return _service.login(email: email, password: password);
+  }
+
+  @override
+  Future<Chef> logout({bool fromAll}) {
+    // TODO: implement logout
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Chef> register({Chef chef}) {
+    // TODO: implement register
+    throw UnimplementedError();
+  }
 }

@@ -8,8 +8,8 @@ import 'package:culinary_app/blocs/blocs.dart';
 class RecipeDetailScreen extends StatelessWidget {
   static const pageID = '/recipe';
 
-  static route(BuildContext context, String id) =>
-      Navigator.pushNamed(context, pageID, arguments: id);
+  static route(BuildContext context, String slug) =>
+      Navigator.pushNamed(context, pageID, arguments: slug);
 
   RecipeDetailScreen(this.selectedRecipe);
 

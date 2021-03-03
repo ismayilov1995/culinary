@@ -1,3 +1,4 @@
+import 'package:culinary_app/ui/widgets/colors.dart';
 import 'package:flutter/material.dart';
 
 import 'services/helper/helper.dart';
@@ -12,7 +13,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Culinary app',
       theme: ThemeData(
-        primaryColor: Color(0xff359A97),
+        primaryColor: kPrimaryColor,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       initialRoute: '/',

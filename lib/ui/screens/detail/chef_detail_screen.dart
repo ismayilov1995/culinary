@@ -7,8 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ChefDetailScreen extends StatelessWidget {
   static const pageID = '/chefDetail';
 
-  static route(BuildContext context, String id) =>
-      Navigator.pushNamed(context, pageID, arguments: id);
+  static route(BuildContext context, String email) =>
+      Navigator.pushNamed(context, pageID, arguments: email);
 
   ChefDetailScreen(this.email);
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 const Color kBgColor = Color(0xFF37A4A1);
+const Color kPrimaryColor = Color(0xFF3B3C53);
 const Color kTextColor = Color(0xFF5D5D6A);
 const Color kTextFieldBg = Color(0xFFE7E1E1);
 final LinearGradient kPrimaryGradient = LinearGradient(
