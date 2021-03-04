@@ -11,8 +11,10 @@ class HandleError {
         e = 'Email is required';
       } else if (error.response.toString().contains('check password')) {
         e = 'Check password';
-      } else if (error.response.toString().contains('email already taken')) {
+      } else if (error.response.toString().contains('email_1')) {
         e = 'Email already using';
+      } else if (error.response.toString().contains('phone minimum')) {
+        e = 'Phone minimum 6 characters';
       }
     }
     return e;

@@ -77,8 +77,11 @@ class ChefRepository extends ChefBase {
   }
 
   @override
-  Future<Auth> register(Chef chef) {
-    return _service.register(chef);
+  Future<Auth> register(Chef chef) async {
+    final auth = await _service.register(chef);
+    await _storage.saveAuth(auth);
+    _controller.add(AuthStatus.authenticated);
+    return auth;
   }
 
   void dispose() => _controller.close();

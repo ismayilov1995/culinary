@@ -18,7 +18,6 @@ class RefreshAccessToken {
       requestOptions.headers['Authorization'] = 'Bearer: $token';
       return dio.request(
         requestOptions.path,
-        options: requestOptions as Options,
         data: requestOptions.data,
         cancelToken: requestOptions.cancelToken,
         queryParameters: requestOptions.queryParameters,

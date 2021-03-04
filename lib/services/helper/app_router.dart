@@ -30,6 +30,11 @@ class AppRouting {
           builder: (_) => BlocProvider(
               create: (context) => LoginCubit(), child: LoginScreen()),
         );
+      case RegisterScreen.pageID:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+              create: (context) => RegisterCubit(), child: RegisterScreen()),
+        );
       default:
         return MaterialPageRoute(builder: (_) => SplashScreen());
     }

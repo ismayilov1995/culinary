@@ -29,7 +29,6 @@ class LoginCubit extends Cubit<LoginState> {
       return;
     }
     emit(state.copyWith(loading: true));
-    await Future.delayed(Duration(seconds: 2));
     try {
       await _repository.login(email: state.email, password: state.password);
     } catch (e) {

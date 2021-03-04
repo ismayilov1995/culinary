@@ -14,6 +14,7 @@ class Chef {
     this.place,
     this.title,
     this.role,
+    this.password,
     this.verified,
   });
 
@@ -27,6 +28,7 @@ class Chef {
   String? place;
   String? title;
   String? role;
+  String? password;
   bool? verified;
 
   String get avatar => _imageUrlRoot + image!;
@@ -64,5 +66,15 @@ class Chef {
         "place": place,
         "title": title,
         "verified": verified,
+      };
+
+  Map<String, dynamic> toMapForRegister() => {
+        "about": about,
+        "email": email,
+        "name": name,
+        "phone": phone,
+        "place": place,
+        "title": title,
+        "password": password,
       };
 }

@@ -50,7 +50,7 @@ class ChefService extends ChefBase {
 
   @override
   Future<Auth> register(Chef chef) async {
-    final res = await dio.post('auth/login', data: chef.toMap());
+    final res = await dio.post('auth/register', data: chef.toMapForRegister());
     return Auth.authFromMap(res.toString());
   }
 }

@@ -90,8 +90,10 @@ class _UserWelcomeRow extends StatelessWidget {
         ChefDetailScreen.route(context, 'ismayilov1995@gmail.com');
         break;
       case 1:
-      case 2:
         LoginScreen.route(context);
+        break;
+      case 2:
+        RegisterScreen.route(context);
         break;
       case 3:
         context
