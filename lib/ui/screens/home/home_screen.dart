@@ -39,12 +39,12 @@ class _UserWelcomeRow extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: ListTile(
             title: AppText(
-              'Good Morning',
+              'Welcome',
               color: kTextColor,
               fontSize: 14,
             ),
             subtitle: AppText(
-              authenticated ? state.auth!.user.name : 'Guest',
+              authenticated ? state.auth!.user.name : 'Guest chef',
               color: Colors.black,
               font: 'Pacifico',
               fontSize: 26,

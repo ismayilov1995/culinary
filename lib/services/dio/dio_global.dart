@@ -1,11 +1,14 @@
 import 'package:culinary_app/services/base/bases.dart';
 import 'package:dio/dio.dart';
+import 'dio_interceptor.dart';
+import 'dio_refresh_access_token.dart';
 
 class DioGlobal {
-  Dio dio = Dio(BaseOptions(baseUrl: BaseUrl.restUrl + 'api/'));
   static DioGlobal? _dioGlobal;
 
-  DioGlobal._internal();
+  DioGlobal._internal() {
+    dio.interceptors.add(CulinaryInterceptor(RefreshAccessToken(dio)));
+  }
 
   factory DioGlobal() {
     if (_dioGlobal == null) {
@@ -13,4 +16,6 @@ class DioGlobal {
     }
     return _dioGlobal!;
   }
+
+  Dio dio = Dio(BaseOptions(baseUrl: BaseUrl.restUrl + 'api/'));
 }
