@@ -34,22 +34,23 @@ class ChefService extends ChefBase {
   }
 
   @override
-  Future<Chef> login({String? email, String? password}) async {
+  Future<Auth> login({String? email, String? password}) async {
     final res = await dio
         .post('auth/login', data: {'email': email, 'password': password});
-    print(res.toString());
-    return Chef();
+    return Auth.authFromMap(res.toString());
   }
 
   @override
-  Future<Chef> logout({bool? fromAll}) {
-    // TODO: implement logout
-    throw UnimplementedError();
+  Future<void> logout({bool? fromAll = false}) async {
+    if (fromAll!)
+      await dio.delete('auth/logout');
+    else
+      await dio.post('auth/logout', data: {'refresh_token': 'dsdfsafsdf'});
   }
 
   @override
-  Future<Chef> register({Chef? chef}) {
-    // TODO: implement register
-    throw UnimplementedError();
+  Future<Auth> register(Chef chef) async {
+    final res = await dio.post('auth/login', data: chef.toMap());
+    return Auth.authFromMap(res.toString());
   }
 }

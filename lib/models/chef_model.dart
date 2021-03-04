@@ -13,6 +13,7 @@ class Chef {
     this.phone,
     this.place,
     this.title,
+    this.role,
     this.verified,
   });
 
@@ -25,6 +26,7 @@ class Chef {
   String? phone;
   String? place;
   String? title;
+  String? role;
   bool? verified;
 
   String get avatar => _imageUrlRoot + image!;
@@ -39,6 +41,7 @@ class Chef {
         phone: json["phone"],
         place: json["place"],
         title: json["title"],
+        role: json["role"],
         verified: json["verified"],
       );
 

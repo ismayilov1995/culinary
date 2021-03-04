@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:culinary_app/services/helper/helper.dart';
 import 'package:culinary_app/services/repositories/repositories.dart';
 import 'package:equatable/equatable.dart';
 
@@ -31,10 +32,10 @@ class LoginCubit extends Cubit<LoginState> {
     await Future.delayed(Duration(seconds: 2));
     try {
       await _repository.login(email: state.email, password: state.password);
-      emit(state.copyWith(error: null));
     } catch (e) {
-      emit(state.copyWith(error: e.toString()));
+      emit(state.copyWith(error: HandleError.fetchError(e)));
+    } finally {
+      emit(state.copyWith(loading: false, error: null));
     }
-    emit(state.copyWith(loading: false));
   }
 }
