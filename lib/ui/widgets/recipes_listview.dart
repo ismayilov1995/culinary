@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class RecipesListView extends StatelessWidget {
   RecipesListView({this.filter});
 
-  final Filter filter;
+  final Filter? filter;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class RecipesListView extends StatelessWidget {
     return BlocBuilder<RecipeBloc, RecipeState>(
       builder: (context, state) {
         if (state is SuccessLoadRecipes) {
-          final loaded = state.recipeResponse.recipes.length;
+          final loaded = state.recipeResponse.recipes!.length;
           return SingleCardStruct('New Recipe',
               padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0),
               child: ListView.builder(
@@ -26,12 +26,11 @@ class RecipesListView extends StatelessWidget {
                   itemCount: loaded + 1,
                   itemBuilder: (context, i) {
                     if (loaded == i) {
-                      return FlatButton(
-                        padding: EdgeInsets.symmetric(vertical: 40.0),
+                      return TextButton(
                         child: Text('Load more'),
                         onPressed: () {
                           if (loaded == state.recipeResponse.total) {
-                            Scaffold.of(context)
+                            ScaffoldMessenger.of(context)
                               ..hideCurrentSnackBar()
                               ..showSnackBar(SnackBar(
                                   content: Text('Sorry, no more recipes')));
@@ -42,7 +41,7 @@ class RecipesListView extends StatelessWidget {
                         },
                       );
                     }
-                    final r = state.recipeResponse.recipes[i];
+                    final r = state.recipeResponse.recipes![i];
                     return RecipeHorizontalCard(
                       r.title,
                       person: r.person.toString(),

@@ -7,12 +7,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ChefDetailScreen extends StatelessWidget {
   static const pageID = '/chefDetail';
 
-  static route(BuildContext context, String email) =>
+  static route(BuildContext context, String? email) =>
       Navigator.pushNamed(context, pageID, arguments: email);
 
   ChefDetailScreen(this.email);
 
-  final String email;
+  final String? email;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class ChefDetailScreen extends StatelessWidget {
 class _ChefAboutRow extends StatelessWidget {
   _ChefAboutRow(this.email);
 
-  final String email;
+  final String? email;
 
   @override
   Widget build(BuildContext context) {
@@ -52,13 +52,13 @@ class _ChefAboutRow extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                AppCircleAvatar(imagePath: state.chef.avatar, diameter: 160),
+                AppCircleAvatar(imagePath: state.chef!.avatar, diameter: 160),
                 AppText(
-                  state.chef.name,
+                  state.chef!.name,
                   font: 'Pacifico',
                   fontSize: 26.0,
                 ),
-                AppText(state.chef.title, color: kTextColor),
+                AppText(state.chef!.title, color: kTextColor),
                 SizedBox(height: 10.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -76,7 +76,7 @@ class _ChefAboutRow extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 AppText(
-                  state.chef.about ?? 'Chefs biography',
+                  state.chef!.about ?? 'Chefs biography',
                   color: kTextColor,
                   align: TextAlign.center,
                 ),

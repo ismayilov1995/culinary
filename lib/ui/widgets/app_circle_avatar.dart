@@ -2,7 +2,7 @@ import 'package:culinary_app/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class AppCircleAvatar extends StatelessWidget {
-  AppCircleAvatar({@required this.imagePath, this.diameter = 50});
+  AppCircleAvatar({required this.imagePath, this.diameter = 50});
 
   final String imagePath;
   final double diameter;

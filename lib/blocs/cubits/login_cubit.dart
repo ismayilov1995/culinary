@@ -17,7 +17,7 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   void passwordChanged(String v) {
-    emit(state.copyWith(password: v, passwordValid: v != null && v.length > 6));
+    emit(state.copyWith(password: v, passwordValid: v.length > 6));
   }
 
   void logIn() async {

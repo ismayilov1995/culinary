@@ -124,10 +124,10 @@ class _SubmitRow extends StatelessWidget {
       buildWhen: (p, c) => p.loading != c.loading,
       listener: (c, s) {
         if (s.error != null) {
-          Scaffold.of(context)
+          ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(SnackBar(
-              content: Text(s.error),
+              content: Text(s.error!),
             ));
         }
       },

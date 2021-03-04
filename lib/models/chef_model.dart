@@ -16,18 +16,18 @@ class Chef {
     this.verified,
   });
 
-  String id;
-  String about;
-  DateTime createdAt;
-  String email;
-  String image;
-  String name;
-  String phone;
-  String place;
-  String title;
-  bool verified;
+  String? id;
+  String? about;
+  DateTime? createdAt;
+  String? email;
+  String? image;
+  String? name;
+  String? phone;
+  String? place;
+  String? title;
+  bool? verified;
 
-  String get avatar => _imageUrlRoot + image;
+  String get avatar => _imageUrlRoot + image!;
 
   factory Chef.fromMap(Map<String, dynamic> json) => Chef(
         id: json["_id"],
@@ -53,7 +53,7 @@ class Chef {
   Map<String, dynamic> toMap() => {
         "_id": id,
         "about": about,
-        "createdAt": createdAt.toIso8601String(),
+        "createdAt": createdAt!.toIso8601String(),
         "email": email,
         "image": image,
         "name": name,

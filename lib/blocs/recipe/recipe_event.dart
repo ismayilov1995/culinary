@@ -4,25 +4,25 @@ abstract class RecipeEvent extends Equatable {
   const RecipeEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class LoadRecipes extends RecipeEvent {
   LoadRecipes({this.filter});
 
-  final Filter filter;
+  final Filter? filter;
 
   @override
-  List<Object> get props => [filter];
+  List<Object?> get props => [filter];
 }
 
 class LoadRecipe extends RecipeEvent {
   LoadRecipe(this.slug);
 
-  final String slug;
+  final String? slug;
 
   @override
-  List<Object> get props => [slug];
+  List<Object?> get props => [slug];
 }
 
 class LoadChefsRecipes extends RecipeEvent {

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class AppTextField extends StatelessWidget {
   AppTextField(this.hintText,
-      {@required this.prefixIcon, @required this.onChanged});
+      {required this.prefixIcon, required this.onChanged});
 
   final String hintText;
   final Widget prefixIcon;

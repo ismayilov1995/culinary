@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 class RecommendCard extends StatelessWidget {
   RecommendCard(
     this.title, {
-    @required this.prepareTime,
-    @required this.person,
-    @required this.imagePath,
+    required this.prepareTime,
+    required this.person,
+    required this.imagePath,
     this.onPressed,
   });
 
-  final String title, prepareTime, person, imagePath;
-  final VoidCallback onPressed;
+  final String? title, prepareTime, person, imagePath;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class RecommendCard extends StatelessWidget {
                     ]),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(size.width * 0.2),
-                      child: Image.network(imagePath, width: size.width * 0.4),
+                      child: Image.network(imagePath!, width: size.width * 0.4),
                     ),
                   ),
                 ),
@@ -57,7 +57,7 @@ class RecommendCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text(title,
+                      Text(title!,
                           style: TextStyle(
                               fontSize: 22,
                               color: Colors.white,

@@ -15,7 +15,7 @@ class AppRouting {
         return MaterialPageRoute(
             builder: (_) => BlocProvider(
                 create: (context) => RecipeBloc(),
-                child: RecipeDetailScreen(arguments)));
+                child: RecipeDetailScreen(arguments as String?)));
       case ChefDetailScreen.pageID:
         return MaterialPageRoute(
             builder: (_) => MultiBlocProvider(
@@ -23,7 +23,7 @@ class AppRouting {
                     BlocProvider(create: (context) => ChefBloc()),
                     BlocProvider(create: (context) => RecipeBloc()),
                   ],
-                  child: ChefDetailScreen(arguments),
+                  child: ChefDetailScreen(arguments as String?),
                 ));
       case LoginScreen.pageID:
         return MaterialPageRoute(

@@ -2,16 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AppText extends StatelessWidget {
-  final String text;
-  final double fontSize;
-  final Color color;
-  final FontWeight fontWeight;
-  final TextAlign align;
-  final String font;
-  final TextOverflow overflow;
+  final String? text;
+  final double? fontSize;
+  final Color? color;
+  final FontWeight? fontWeight;
+  final TextAlign? align;
+  final String? font;
+  final TextOverflow? overflow;
 
   const AppText(this.text,
-      {Key key,
+      {Key? key,
       this.fontSize,
       this.color,
       this.fontWeight,
@@ -23,7 +23,7 @@ class AppText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      text,
+      text!,
       style: TextStyle(
           fontSize: fontSize,
           color: color,

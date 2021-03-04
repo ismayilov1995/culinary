@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class BriefInfoWidget extends StatelessWidget {
   BriefInfoWidget(this.prepareTime, this.person, {this.color = kTextColor});
 
-  final String prepareTime, person;
+  final String? prepareTime, person;
   final Color color;
 
   @override
@@ -32,7 +32,7 @@ class BriefInfoWidget extends StatelessWidget {
             ),
             SizedBox(width: 5),
             AppText(
-              person + ' person',
+              person! + ' person',
               color: color,
             ),
           ],

@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 class RecipeHorizontalCard extends StatelessWidget {
   RecipeHorizontalCard(
     this.title, {
-    @required this.prepareTime,
-    @required this.person,
-    @required this.imagePath,
+    required this.prepareTime,
+    required this.person,
+    required this.imagePath,
     this.onPressed,
   });
 
-  final String title, prepareTime, person, imagePath;
-  final VoidCallback onPressed;
+  final String? title, prepareTime, person, imagePath;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,7 @@ class RecipeHorizontalCard extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(60.0),
                   child: Image.network(
-                    imagePath,
+                    imagePath!,
                     height: 110,
                     width: 110,
                     fit: BoxFit.cover,

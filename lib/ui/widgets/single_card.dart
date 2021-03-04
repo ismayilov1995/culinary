@@ -2,10 +2,10 @@ import 'package:culinary_app/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class SingleCardStruct extends StatelessWidget {
-  SingleCardStruct(this.title, {@required this.child, this.padding});
+  SingleCardStruct(this.title, {required this.child, this.padding});
 
   final String title;
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
   final Widget child;
 
   @override

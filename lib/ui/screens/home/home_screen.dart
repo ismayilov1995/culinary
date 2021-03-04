@@ -50,7 +50,7 @@ class _UserWelcomeRow extends StatelessWidget {
             imagePath:
                 'https://static.wikia.nocookie.net/queen-of-the-south/images/e/e6/Kelly_anne_sacar_con_sifron_el_mar.jpg/revision/latest/top-crop/width/220/height/220?cb=20180718062632',
           ),
-          onSelected: (v) => _onMenuItemSelect(context, v),
+          onSelected: (dynamic v) => _onMenuItemSelect(context, v),
           itemBuilder: (context) => [
             PopupMenuItem(
               child: Text('Go to profile'),
@@ -123,9 +123,9 @@ class _RecommendRecipesRow extends StatelessWidget {
                     physics: BouncingScrollPhysics(),
                     padding: EdgeInsets.only(left: 20.0),
                     scrollDirection: Axis.horizontal,
-                    itemCount: state.recipeResponse.recipes.length,
+                    itemCount: state.recipeResponse.recipes!.length,
                     itemBuilder: (context, i) {
-                      final r = state.recipeResponse.recipes[i];
+                      final r = state.recipeResponse.recipes![i];
                       return RecommendCard(
                         r.title,
                         person: r.person.toString(),

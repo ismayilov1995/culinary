@@ -16,8 +16,8 @@ class RecipeResponse {
     this.total,
   });
 
-  List<Recipe> recipes;
-  int total;
+  List<Recipe>? recipes;
+  int? total;
 
   factory RecipeResponse.fromMap(Map<String, dynamic> json) => RecipeResponse(
         recipes: List<Recipe>.from(
@@ -26,7 +26,7 @@ class RecipeResponse {
       );
 
   Map<String, dynamic> toMap() => {
-        "recipes": List<dynamic>.from(recipes.map((e) => e.toMapForHome())),
+        "recipes": List<dynamic>.from(recipes!.map((e) => e.toMapForHome())),
         "total": total,
       };
 }
@@ -51,19 +51,19 @@ class Recipe {
     this.title,
   });
 
-  String id;
-  Chef chef;
-  int cookingTime;
-  DateTime createdAt;
-  String direction;
-  List<String> image;
+  String? id;
+  Chef? chef;
+  int? cookingTime;
+  DateTime? createdAt;
+  String? direction;
+  List<String>? image;
   dynamic ingredients;
-  String overview;
-  int person;
-  String slug;
-  String title;
+  String? overview;
+  int? person;
+  String? slug;
+  String? title;
 
-  String get mainImage => _imageUrlRoot + image.first;
+  String get mainImage => _imageUrlRoot + image!.first;
 
   factory Recipe.fromMap(Map<String, dynamic> json) => Recipe(
         id: json["_id"],
@@ -92,9 +92,9 @@ class Recipe {
 
   Map<String, dynamic> toMapForHome() => {
         "_id": id,
-        "chef": chef.toMapForHome(),
+        "chef": chef!.toMapForHome(),
         "cookingTime": cookingTime,
-        "image": List<dynamic>.from(image.map((x) => x)),
+        "image": List<dynamic>.from(image!.map((x) => x)),
         "overview": overview,
         "person": person,
         "slug": slug,
@@ -103,11 +103,11 @@ class Recipe {
 
   Map<String, dynamic> toMap() => {
         "_id": id,
-        "chef": chef.toMap(),
+        "chef": chef!.toMap(),
         "cookingTime": cookingTime,
-        "createdAt": createdAt.toIso8601String(),
+        "createdAt": createdAt!.toIso8601String(),
         "direction": direction,
-        "image": List<dynamic>.from(image.map((x) => x)),
+        "image": List<dynamic>.from(image!.map((x) => x)),
         "ingredients": ingredients,
         "overview": overview,
         "person": person,

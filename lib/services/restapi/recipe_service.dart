@@ -11,29 +11,29 @@ class RecipeService extends RecipeBase {
 
   RecipeService._internal();
 
-  static RecipeService _recipeService;
+  static RecipeService? _recipeService;
 
   factory RecipeService() {
     if (_recipeService == null) {
       _recipeService = RecipeService._internal();
     }
-    return _recipeService;
+    return _recipeService!;
   }
 
   @override
-  Future<bool> delete(String slug) async {
+  Future<bool?> delete(String slug) async {
     final res = await dio.delete('$path/detail/$slug');
     return jsonDecode(res.toString())['message'];
   }
 
   @override
-  Future<Recipe> recipe(String slug) async {
+  Future<Recipe> recipe(String? slug) async {
     final res = await dio.get('$path/detail/$slug');
     return Recipe.fromJSON(res.toString());
   }
 
   @override
-  Future<RecipeResponse> recipes({Filter filter}) async {
+  Future<RecipeResponse> recipes({Filter? filter}) async {
     Map<String, dynamic> query = Map();
     if (filter != null) query = filter.toMap();
     final res = await dio.get(path, queryParameters: query);

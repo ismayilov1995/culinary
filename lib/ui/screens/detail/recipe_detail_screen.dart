@@ -8,12 +8,12 @@ import 'package:culinary_app/blocs/blocs.dart';
 class RecipeDetailScreen extends StatelessWidget {
   static const pageID = '/recipe';
 
-  static route(BuildContext context, String slug) =>
+  static route(BuildContext context, String? slug) =>
       Navigator.pushNamed(context, pageID, arguments: slug);
 
   RecipeDetailScreen(this.selectedRecipe);
 
-  final String selectedRecipe;
+  final String? selectedRecipe;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class RecipeDetailScreen extends StatelessWidget {
         ));
   }
 
-  Widget _scaffoldBackground({String image, Widget child}) {
+  Widget _scaffoldBackground({required String image, Widget? child}) {
     return Stack(
       children: [
         Container(
@@ -67,7 +67,7 @@ class RecipeDetailScreen extends StatelessWidget {
                   end: Alignment.bottomCenter,
                   colors: [Colors.white.withOpacity(0), Colors.white])),
         ),
-        child
+        child!
       ],
     );
   }
@@ -126,7 +126,7 @@ class _MealOverview extends StatelessWidget {
 class _ChefInformationCard extends StatelessWidget {
   _ChefInformationCard(this.chef);
 
-  final Chef chef;
+  final Chef? chef;
 
   @override
   Widget build(BuildContext context) {
@@ -139,19 +139,19 @@ class _ChefInformationCard extends StatelessWidget {
       ),
       child: ListTile(
         leading: AppCircleAvatar(
-          imagePath: chef.avatar,
+          imagePath: chef!.avatar,
         ),
         title: AppText(
-          chef.name,
+          chef!.name,
           font: 'Pacifico',
           fontSize: 20,
         ),
         subtitle: AppText(
-          chef.title,
+          chef!.title,
           color: kTextColor,
         ),
         trailing: Icon(Icons.arrow_forward_ios),
-        onTap: () => ChefDetailScreen.route(context, chef.email),
+        onTap: () => ChefDetailScreen.route(context, chef!.email),
       ),
     );
   }
@@ -186,7 +186,7 @@ class _IngredientsRow extends StatelessWidget {
 class _PrepareRow extends StatelessWidget {
   _PrepareRow(this.direction);
 
-  final String direction;
+  final String? direction;
 
   @override
   Widget build(BuildContext context) {

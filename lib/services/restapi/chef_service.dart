@@ -11,17 +11,17 @@ class ChefService extends ChefBase {
 
   ChefService._internal();
 
-  static ChefService _chefService;
+  static ChefService? _chefService;
 
   factory ChefService() {
     if (_chefService == null) {
       _chefService = ChefService._internal();
     }
-    return _chefService;
+    return _chefService!;
   }
 
   @override
-  Future<Chef> chef({String email}) async {
+  Future<Chef> chef({String? email}) async {
     var p = email != null ? '/profile/$email' : '/';
     final res = await dio.get('$path$p');
     return Chef.fromMap(jsonDecode(res.toString())['chef']);
@@ -34,7 +34,7 @@ class ChefService extends ChefBase {
   }
 
   @override
-  Future<Chef> login({String email, String password}) async {
+  Future<Chef> login({String? email, String? password}) async {
     final res = await dio
         .post('auth/login', data: {'email': email, 'password': password});
     print(res.toString());
@@ -42,13 +42,13 @@ class ChefService extends ChefBase {
   }
 
   @override
-  Future<Chef> logout({bool fromAll}) {
+  Future<Chef> logout({bool? fromAll}) {
     // TODO: implement logout
     throw UnimplementedError();
   }
 
   @override
-  Future<Chef> register({Chef chef}) {
+  Future<Chef> register({Chef? chef}) {
     // TODO: implement register
     throw UnimplementedError();
   }

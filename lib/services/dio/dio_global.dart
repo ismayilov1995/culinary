@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 
 class DioGlobal {
   Dio dio = Dio(BaseOptions(baseUrl: BaseUrl.restUrl + 'api/'));
-  static DioGlobal _dioGlobal;
+  static DioGlobal? _dioGlobal;
 
   DioGlobal._internal();
 
@@ -11,6 +11,6 @@ class DioGlobal {
     if (_dioGlobal == null) {
       _dioGlobal = DioGlobal._internal();
     }
-    return _dioGlobal;
+    return _dioGlobal!;
   }
 }

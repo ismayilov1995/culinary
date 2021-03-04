@@ -2,7 +2,7 @@ import 'package:culinary_app/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class SearchButton extends StatelessWidget {
-  SearchButton({@required this.onPressed});
+  SearchButton({required this.onPressed});
 
   final VoidCallback onPressed;
 

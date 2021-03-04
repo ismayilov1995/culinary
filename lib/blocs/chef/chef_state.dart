@@ -4,7 +4,7 @@ abstract class ChefState extends Equatable {
   const ChefState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class ChefInitial extends ChefState {}
@@ -12,10 +12,10 @@ class ChefInitial extends ChefState {}
 class SuccessLoadChef extends ChefState {
   SuccessLoadChef(this.chef);
 
-  final Chef chef;
+  final Chef? chef;
 
   @override
-  List<Object> get props => [chef];
+  List<Object?> get props => [chef];
 }
 
 class FailLoadChef extends ChefState {
