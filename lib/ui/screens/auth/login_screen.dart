@@ -1,4 +1,5 @@
 import 'package:culinary_app/blocs/blocs.dart';
+import 'package:culinary_app/services/repositories/chef_repository.dart';
 import 'package:culinary_app/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,72 +12,79 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomPaint(
-          painter: LoginPainter(),
-          child: SingleChildScrollView(
-            child: Container(
-              height: MediaQuery.of(context).size.height,
-              margin: EdgeInsets.symmetric(horizontal: 40.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: Align(
-                      alignment: Alignment(-1, 0.5),
-                      child: AppText(
-                        'Welcome\nback',
-                        fontSize: 30,
-                        font: 'Poppins',
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
+      body: BlocListener<AuthenticationBloc, AuthenticationState>(
+        listener: (context, state) {
+          if (state.status == AuthStatus.authenticated) {
+            Navigator.pop(context);
+          }
+        },
+        child: CustomPaint(
+            painter: LoginPainter(),
+            child: SingleChildScrollView(
+              child: Container(
+                height: MediaQuery.of(context).size.height,
+                margin: EdgeInsets.symmetric(horizontal: 40.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: Align(
+                        alignment: Alignment(-1, 0.5),
+                        child: AppText(
+                          'Welcome\nback',
+                          fontSize: 30,
+                          font: 'Poppins',
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    flex: 3,
-                    child: SingleChildScrollView(
-                      physics: NeverScrollableScrollPhysics(),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _EmailInput(),
-                          SizedBox(height: 20),
-                          _PasswordInput(),
-                          _SubmitRow(),
-                          MaterialButton(
-                              padding: EdgeInsets.zero,
-                              child: Text(
-                                'Forgot Password?',
-                                style: TextStyle(
-                                    color: kTextColor,
-                                    decoration: TextDecoration.underline),
-                              ),
-                              onPressed: () {}),
-                        ],
+                    Expanded(
+                      flex: 3,
+                      child: SingleChildScrollView(
+                        physics: NeverScrollableScrollPhysics(),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _EmailInput(),
+                            SizedBox(height: 20),
+                            _PasswordInput(),
+                            _SubmitRow(),
+                            MaterialButton(
+                                padding: EdgeInsets.zero,
+                                child: Text(
+                                  'Forgot Password?',
+                                  style: TextStyle(
+                                      color: kTextColor,
+                                      decoration: TextDecoration.underline),
+                                ),
+                                onPressed: () {}),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  TextButton(
-                      child: RichText(
-                        text: TextSpan(
-                            text: 'Don\'t have an account? ',
-                            style: TextStyle(color: Colors.black),
-                            children: [
-                              TextSpan(
-                                text: 'Sign up',
-                                style: TextStyle(
-                                    color: Colors.pink,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ]),
-                      ),
-                      onPressed: () {}),
-                ],
+                    TextButton(
+                        child: RichText(
+                          text: TextSpan(
+                              text: 'Don\'t have an account? ',
+                              style: TextStyle(color: Colors.black),
+                              children: [
+                                TextSpan(
+                                  text: 'Sign up',
+                                  style: TextStyle(
+                                      color: Colors.pink,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ]),
+                        ),
+                        onPressed: () {}),
+                  ],
+                ),
               ),
-            ),
-          )),
+            )),
+      ),
     );
   }
 }
