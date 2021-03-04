@@ -41,11 +41,11 @@ class ChefService extends ChefBase {
   }
 
   @override
-  Future<void> logout({bool? fromAll = false}) async {
+  Future<void> logout({bool? fromAll = false, String? refreshToken}) async {
     if (fromAll!)
       await dio.delete('auth/logout');
     else
-      await dio.post('auth/logout', data: {'refresh_token': 'dsdfsafsdf'});
+      await dio.post('auth/logout', data: {'refresh_token': refreshToken});
   }
 
   @override

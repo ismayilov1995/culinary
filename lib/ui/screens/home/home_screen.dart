@@ -1,3 +1,4 @@
+import 'package:culinary_app/services/repositories/repositories.dart';
 import 'package:culinary_app/ui/screens/screens.dart';
 import 'package:culinary_app/ui/widgets/widgets.dart';
 import 'package:flutter/cupertino.dart';
@@ -31,46 +32,55 @@ class HomeScreen extends StatelessWidget {
 class _UserWelcomeRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
-      child: ListTile(
-        title: AppText(
-          'Good Morning',
-          color: kTextColor,
-          fontSize: 14,
-        ),
-        subtitle: AppText(
-          'Sebastian Vettel',
-          color: Colors.black,
-          font: 'Pacifico',
-          fontSize: 26,
-        ),
-        trailing: PopupMenuButton(
-          child: AppCircleAvatar(
-            imagePath:
-                'https://static.wikia.nocookie.net/queen-of-the-south/images/e/e6/Kelly_anne_sacar_con_sifron_el_mar.jpg/revision/latest/top-crop/width/220/height/220?cb=20180718062632',
+    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+      builder: (context, state) {
+        final bool authenticated = state.status == AuthStatus.authenticated;
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10.0),
+          child: ListTile(
+            title: AppText(
+              'Good Morning',
+              color: kTextColor,
+              fontSize: 14,
+            ),
+            subtitle: AppText(
+              authenticated ? state.auth!.user.name : 'Guest',
+              color: Colors.black,
+              font: 'Pacifico',
+              fontSize: 26,
+            ),
+            trailing: PopupMenuButton(
+              child: AppCircleAvatar(
+                imagePath: authenticated
+                    ? state.auth!.user.avatar
+                    : 'https://static.wikia.nocookie.net/queen-of-the-south/images/e/e6/Kelly_anne_sacar_con_sifron_el_mar.jpg/revision/latest/top-crop/width/220/height/220?cb=20180718062632',
+              ),
+              onSelected: (dynamic v) => _onMenuItemSelect(context, v),
+              itemBuilder: (context) => [
+                if (authenticated) ...[
+                  PopupMenuItem(
+                    child: Text('Go to profile'),
+                    value: 0,
+                  ),
+                  PopupMenuItem(
+                    child: Text('Logout'),
+                    value: 3,
+                  ),
+                ] else ...[
+                  PopupMenuItem(
+                    child: Text('Login'),
+                    value: 1,
+                  ),
+                  PopupMenuItem(
+                    child: Text('Create account'),
+                    value: 2,
+                  ),
+                ]
+              ],
+            ),
           ),
-          onSelected: (dynamic v) => _onMenuItemSelect(context, v),
-          itemBuilder: (context) => [
-            PopupMenuItem(
-              child: Text('Go to profile'),
-              value: 0,
-            ),
-            PopupMenuItem(
-              child: Text('Login'),
-              value: 1,
-            ),
-            PopupMenuItem(
-              child: Text('Create account'),
-              value: 2,
-            ),
-            PopupMenuItem(
-              child: Text('Logout'),
-              value: 3,
-            ),
-          ],
-        ),
-      ),
+        );
+      },
     );
   }
 
@@ -81,8 +91,12 @@ class _UserWelcomeRow extends StatelessWidget {
         break;
       case 1:
       case 2:
-      case 3:
         LoginScreen.route(context);
+        break;
+      case 3:
+        context
+            .read<AuthenticationBloc>()
+            .add(AuthLogoutRequested(logOutAll: false));
         break;
     }
   }

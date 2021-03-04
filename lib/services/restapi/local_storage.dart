@@ -24,11 +24,12 @@ class LocalStorage {
       await prefs.setString('name', auth.user.name!);
       await prefs.setString('email', auth.user.email!);
       await prefs.setString('image', auth.user.image!);
+      await prefs.setString('role', auth.user.role!);
       await prefs.setString('token', auth.accessToken);
       await prefs.setString('refresh', auth.refreshToken);
-      await prefs.setString('role', auth.user.role!);
       return true;
-    } catch (_) {
+    } catch (e) {
+      print(e);
       return false;
     }
   }

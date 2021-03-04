@@ -32,7 +32,7 @@ class Chef {
   String get avatar => _imageUrlRoot + image!;
 
   factory Chef.fromMap(Map<String, dynamic> json) => Chef(
-        id: json["_id"],
+        id: json["id"],
         about: json["about"],
         createdAt: DateTime.parse(json["createdAt"]),
         email: json["email"],
@@ -54,7 +54,7 @@ class Chef {
       };
 
   Map<String, dynamic> toMap() => {
-        "_id": id,
+        "id": id,
         "about": about,
         "createdAt": createdAt!.toIso8601String(),
         "email": email,
