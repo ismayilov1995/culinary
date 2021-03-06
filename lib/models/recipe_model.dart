@@ -55,7 +55,7 @@ class Recipe {
   Chef? chef;
   int? cookingTime;
   DateTime? createdAt;
-  String? direction;
+  List<String>? direction;
   List<String>? image;
   dynamic ingredients;
   String? overview;
@@ -70,7 +70,7 @@ class Recipe {
         chef: Chef.fromMap(json["chef"]),
         cookingTime: json["cookingTime"],
         createdAt: DateTime.parse(json["createdAt"]),
-        direction: json["direction"],
+        direction: List<String>.from(json["direction"].map((x) => x)),
         image: List<String>.from(json["image"].map((x) => x)),
         ingredients: json["ingredients"] != null ? json["ingredients"] : [],
         overview: json["overview"],
@@ -106,7 +106,7 @@ class Recipe {
         "chef": chef!.toMap(),
         "cookingTime": cookingTime,
         "createdAt": createdAt!.toIso8601String(),
-        "direction": direction,
+        "direction": List<dynamic>.from(direction!.map((x) => x)),
         "image": List<dynamic>.from(image!.map((x) => x)),
         "ingredients": ingredients,
         "overview": overview,

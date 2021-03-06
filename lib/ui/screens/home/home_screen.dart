@@ -1,3 +1,4 @@
+import 'package:culinary_app/models/auth_model.dart';
 import 'package:culinary_app/services/repositories/repositories.dart';
 import 'package:culinary_app/ui/screens/screens.dart';
 import 'package:culinary_app/ui/widgets/widgets.dart';
@@ -21,7 +22,7 @@ class HomeScreen extends StatelessWidget {
             _UserWelcomeRow(),
             _SearchRow(),
             _RecommendRecipesRow(),
-            RecipesListView(),
+            RecipesListView('Latest Recipes'),
           ],
         ),
       ),
@@ -55,7 +56,8 @@ class _UserWelcomeRow extends StatelessWidget {
                     ? state.auth!.user.avatar
                     : 'https://static.wikia.nocookie.net/queen-of-the-south/images/e/e6/Kelly_anne_sacar_con_sifron_el_mar.jpg/revision/latest/top-crop/width/220/height/220?cb=20180718062632',
               ),
-              onSelected: (dynamic v) => _onMenuItemSelect(context, v),
+              onSelected: (dynamic v) =>
+                  _onMenuItemSelect(context, v, state.auth),
               itemBuilder: (context) => [
                 if (authenticated) ...[
                   PopupMenuItem(
@@ -84,10 +86,11 @@ class _UserWelcomeRow extends StatelessWidget {
     );
   }
 
-  void _onMenuItemSelect(BuildContext context, int v) {
+  void _onMenuItemSelect(BuildContext context, int v, Auth? auth) {
     switch (v) {
       case 0:
-        ChefDetailScreen.route(context, 'ismayilov1995@gmail.com');
+        ChefDetailScreen.route(context,
+            email: auth!.user.email, id: auth.user.id, isUser: true);
         break;
       case 1:
         LoginScreen.route(context);

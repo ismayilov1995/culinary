@@ -22,8 +22,6 @@ class ChefRepository extends ChefBase {
   final ChefService _service = ChefService();
   final LocalStorage _storage = LocalStorage();
 
-  Chef? cachedChef;
-
   Stream<AuthStatus> get status async* {
     yield AuthStatus.unknown;
     yield* _controller.stream;
@@ -48,10 +46,7 @@ class ChefRepository extends ChefBase {
 
   @override
   Future<Chef?> chef({String? email}) async {
-    if (cachedChef == null) {
-      cachedChef = await _service.chef(email: email);
-    }
-    return cachedChef;
+    return await _service.chef(email: email);
   }
 
   @override

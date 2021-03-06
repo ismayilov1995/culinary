@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:culinary_app/ui/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,13 +19,18 @@ class AppRouting {
                 create: (context) => RecipeBloc(),
                 child: RecipeDetailScreen(arguments as String?)));
       case ChefDetailScreen.pageID:
+        final data = jsonDecode(arguments as String);
         return MaterialPageRoute(
             builder: (_) => MultiBlocProvider(
                   providers: [
                     BlocProvider(create: (context) => ChefBloc()),
                     BlocProvider(create: (context) => RecipeBloc()),
                   ],
-                  child: ChefDetailScreen(arguments as String?),
+                  child: ChefDetailScreen(
+                    data['email'],
+                    data['id'],
+                    isUser: data['isUser'],
+                  ),
                 ));
       case LoginScreen.pageID:
         return MaterialPageRoute(

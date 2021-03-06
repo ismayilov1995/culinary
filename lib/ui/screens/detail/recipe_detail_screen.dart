@@ -36,7 +36,7 @@ class RecipeDetailScreen extends StatelessWidget {
                       _MealOverview(state.recipe),
                       _ChefInformationCard(state.recipe.chef),
                       _IngredientsRow(),
-                      _PrepareRow(state.recipe.direction),
+                      _PrepareRow(state.recipe.direction!),
                       LogoHorizontal(),
                     ],
                   ));
@@ -151,7 +151,8 @@ class _ChefInformationCard extends StatelessWidget {
           color: kTextColor,
         ),
         trailing: Icon(Icons.arrow_forward_ios),
-        onTap: () => ChefDetailScreen.route(context, chef!.email),
+        onTap: () =>
+            ChefDetailScreen.route(context, email: chef!.email, id: chef!.id),
       ),
     );
   }
@@ -186,21 +187,43 @@ class _IngredientsRow extends StatelessWidget {
 class _PrepareRow extends StatelessWidget {
   _PrepareRow(this.direction);
 
-  final String? direction;
+  final List<String> direction;
+  final padding = 20.0;
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width - padding * 4;
     return SingleCardStruct(
       'Directions',
-      padding: EdgeInsets.only(left: 20.0, top: 20.0),
+      padding: EdgeInsets.only(left: padding, top: padding),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-        child: AppText(
-          direction,
-          align: TextAlign.center,
-          font: 'Poppins',
-          fontSize: 16,
-        ),
+        padding: EdgeInsets.symmetric(horizontal: padding, vertical: 10.0),
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: direction
+                .map((e) => Padding(
+                      padding: const EdgeInsets.only(bottom: 10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CircleAvatar(
+                            radius: 15,
+                            backgroundColor: kPrimaryColor,
+                            child: Text((direction.indexOf(e) + 1).toString()),
+                          ),
+                          Container(
+                            width: width,
+                            child: AppText(
+                              e,
+                              font: 'Poppins',
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ))
+                .toList()),
       ),
     );
   }

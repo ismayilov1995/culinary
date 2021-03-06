@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:culinary_app/blocs/blocs.dart';
 import 'package:culinary_app/models/models.dart';
 import 'package:culinary_app/ui/widgets/widgets.dart';
@@ -7,16 +9,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ChefDetailScreen extends StatelessWidget {
   static const pageID = '/chefDetail';
 
-  static route(BuildContext context, String? email) =>
-      Navigator.pushNamed(context, pageID, arguments: email);
+  static route(BuildContext context,
+          {String? email, String? id, bool isUser = false}) =>
+      Navigator.pushNamed(context, pageID,
+          arguments: jsonEncode({'email': email, 'id': id, 'isUser': isUser}));
 
-  ChefDetailScreen(this.email);
+  ChefDetailScreen(this.email, this.id, {this.isUser = false});
 
-  final String? email;
+  final String? email, id;
+  final bool isUser;
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       body: ListView(
         physics: BouncingScrollPhysics(),
         children: [
@@ -24,11 +31,18 @@ class ChefDetailScreen extends StatelessWidget {
             elevation: 0,
             backgroundColor: Colors.transparent,
             iconTheme: IconThemeData(color: kBgColor),
+            actions: [
+              if (isUser)
+                IconButton(
+                  icon: Icon(Icons.settings),
+                  onPressed: () => Navigator.pop(context),
+                ),
+            ],
           ),
           _ChefAboutRow(email),
-          // _ChefsRecipes(email),
           RecipesListView(
-            filter: Filter(chef: email),
+            'Chef\'s Recipes',
+            filter: Filter(chef: id),
           )
         ],
       ),
