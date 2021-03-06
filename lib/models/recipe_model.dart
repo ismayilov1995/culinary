@@ -57,7 +57,7 @@ class Recipe {
   DateTime? createdAt;
   List<String>? direction;
   List<String>? image;
-  dynamic ingredients;
+  List<String>? ingredients;
   String? overview;
   int? person;
   String? slug;
@@ -72,7 +72,7 @@ class Recipe {
         createdAt: DateTime.parse(json["createdAt"]),
         direction: List<String>.from(json["direction"].map((x) => x)),
         image: List<String>.from(json["image"].map((x) => x)),
-        ingredients: json["ingredients"] != null ? json["ingredients"] : [],
+        ingredients: List<String>.from(json["ingredients"].map((x) => x)),
         overview: json["overview"],
         person: json["person"],
         slug: json["slug"],
@@ -108,10 +108,20 @@ class Recipe {
         "createdAt": createdAt!.toIso8601String(),
         "direction": List<dynamic>.from(direction!.map((x) => x)),
         "image": List<dynamic>.from(image!.map((x) => x)),
-        "ingredients": ingredients,
+        "ingredients": List<dynamic>.from(ingredients!.map((x) => x)),
         "overview": overview,
         "person": person,
         "slug": slug,
         "title": title,
       };
+
+  Map<String, dynamic> toMapForCreate() => {
+    "cookingTime": cookingTime,
+    "direction": List<dynamic>.from(direction!.map((x) => x)),
+    // "image": List<dynamic>.from(image!.map((x) => x)),
+    "ingredients": List<dynamic>.from(ingredients!.map((x) => x)),
+    "overview": overview,
+    "person": person,
+    "title": title,
+  };
 }
