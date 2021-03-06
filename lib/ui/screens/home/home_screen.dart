@@ -61,6 +61,10 @@ class _UserWelcomeRow extends StatelessWidget {
               itemBuilder: (context) => [
                 if (authenticated) ...[
                   PopupMenuItem(
+                    child: Text('Write recipe'),
+                    value: 4,
+                  ),
+                  PopupMenuItem(
                     child: Text('Go to profile'),
                     value: 0,
                   ),
@@ -102,6 +106,9 @@ class _UserWelcomeRow extends StatelessWidget {
         context
             .read<AuthenticationBloc>()
             .add(AuthLogoutRequested(logOutAll: false));
+        break;
+      case 4:
+        CreateRecipeScreen.route(context);
         break;
     }
   }
