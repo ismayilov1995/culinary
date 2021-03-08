@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:culinary_app/services/base/bases.dart';
 
@@ -49,6 +50,7 @@ class Recipe {
     this.person,
     this.slug,
     this.title,
+    this.imageCreate,
   });
 
   String? id;
@@ -62,6 +64,7 @@ class Recipe {
   int? person;
   String? slug;
   String? title;
+  List<File>? imageCreate;
 
   String get mainImage => _imageUrlRoot + image!.first;
 
@@ -120,7 +123,6 @@ class Recipe {
   Map<String, dynamic> toMapForCreate() => {
         "cookingTime": cookingTime,
         "direction": List<dynamic>.from(direction!.map((x) => x)),
-        // "image": List<dynamic>.from(image!.map((x) => x)),
         "ingredients": List<dynamic>.from(ingredients!.map((x) => x)),
         "overview": overview,
         "person": person,

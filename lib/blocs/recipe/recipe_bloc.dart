@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:culinary_app/models/models.dart';
+import 'package:culinary_app/services/helper/handle_error_messages.dart';
 import 'package:culinary_app/services/repositories/repositories.dart';
 import 'package:equatable/equatable.dart';
 
@@ -22,6 +23,8 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       yield* _mapLoadRecipes(event);
     } else if (event is LoadRecipe) {
       yield* _mapLoadRecipe(event);
+    } else if (event is CreateRecipe) {
+      yield* _mapCreateRecipe(event);
     }
   }
 
@@ -48,6 +51,16 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       print(e);
       yield FailLoadRecipe('error while load');
     }
+  }
+
+  Stream<RecipeState> _mapCreateRecipe(CreateRecipe event) async* {
+    try {
+      final created = await _repository.create(event.recipe);
+      yield SuccessCreateRecipe(created);
+    } catch (e) {
+      yield FailCreateRecipe(HandleError.fetchError(e));
+    }
+    yield RecipeInitial();
   }
 
 // Stream<RecipeState> _mapDeleteRecipe(LoadRecipes event) {

@@ -33,3 +33,12 @@ class LoadChefsRecipes extends RecipeEvent {
   @override
   List<Object> get props => [email];
 }
+
+class CreateRecipe extends RecipeEvent {
+  CreateRecipe(this.recipe);
+
+  final Recipe recipe;
+
+  @override
+  List<Object?> get props => [recipe];
+}

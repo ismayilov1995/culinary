@@ -5,6 +5,7 @@ class HandleError {
     String e = 'Error';
     print('HandleError: ' + error.toString());
     if (error is DioError) {
+      print(error.response.toString());
       if (error.response.toString().contains('not found')) {
         e = 'User not found';
       } else if (error.response.toString().contains('email')) {

@@ -1,6 +1,8 @@
+import 'package:culinary_app/blocs/blocs.dart';
 import 'package:culinary_app/models/models.dart';
 import 'package:culinary_app/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CreateRecipeScreen extends StatefulWidget {
   static const pageID = '/createRecipe';
@@ -29,123 +31,154 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Form(
-        key: _formKey,
-        child: ListView(
-          physics: BouncingScrollPhysics(),
-          padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 20.0),
-          children: [
-            AppBar(
-              title: AppText('New recipe', color: kPrimaryColor),
-              iconTheme: IconThemeData(color: kPrimaryColor),
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-            ),
-            SingleCardStruct(
-              'Title',
-              padding: padding,
-              child: AppTextField('Recipe title',
-                  prefixIcon: Icon(Icons.title),
-                  validator: (v) => _checkValid(v, 5, 'Minimum 5 character'),
-                  onSaved: (v) => recipe.title = v),
-            ),
-            SingleCardStruct(
-              'Overview',
-              padding: padding,
-              child: AppTextField(
-                'Recipe overview',
-                maxLines: 4,
-                minLines: 2,
-                prefixIcon: Icon(Icons.article),
-                validator: (v) => _checkValid(v, 10, 'Minimum 10 character'),
-                onSaved: (v) => recipe.overview = v,
+      body: BlocListener<RecipeBloc, RecipeState>(
+        listener: (context, state) {
+          if (state is SuccessCreateRecipe) {
+            Navigator.pop(context);
+          } else if (state is FailCreateRecipe) {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(SnackBar(content: Text(state.error)));
+          }
+        },
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            physics: BouncingScrollPhysics(),
+            padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 20.0),
+            children: [
+              AppBar(
+                title: AppText('New recipe', color: kPrimaryColor),
+                iconTheme: IconThemeData(color: kPrimaryColor),
+                backgroundColor: Colors.transparent,
+                elevation: 0,
               ),
-            ),
-            SingleCardStruct(
-              'Serving and cooking',
-              padding: padding,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: AppTextField(
-                      'Servings',
-                      keyboardType: TextInputType.number,
-                      prefixIcon: Icon(Icons.person),
-                      validator: (v) => _checkValid(v, 0, 'Required'),
-                      onSaved: (v) => recipe.person = int.parse(v),
+              SingleCardStruct(
+                'Title',
+                padding: padding,
+                child: AppTextField('Recipe title',
+                    prefixIcon: Icon(Icons.title),
+                    validator: (v) => _checkValid(v, 5, 'Minimum 5 character'),
+                    onSaved: (v) => recipe.title = v),
+              ),
+              SingleCardStruct(
+                'Overview',
+                padding: padding,
+                child: AppTextField(
+                  'Recipe overview',
+                  maxLines: 4,
+                  minLines: 2,
+                  prefixIcon: Icon(Icons.article),
+                  validator: (v) => _checkValid(v, 10, 'Minimum 10 character'),
+                  onSaved: (v) => recipe.overview = v,
+                ),
+              ),
+              SingleCardStruct(
+                'Serving and cooking',
+                padding: padding,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: AppTextField(
+                        'Servings',
+                        keyboardType: TextInputType.number,
+                        prefixIcon: Icon(Icons.person),
+                        validator: (v) => _checkValid(v, 0, 'Required'),
+                        onSaved: (v) => recipe.person = int.parse(v),
+                      ),
                     ),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: AppTextField(
+                        'Cooking time in minutes',
+                        keyboardType: TextInputType.number,
+                        prefixIcon: Icon(Icons.schedule),
+                        validator: (v) => _checkValid(v, 0, 'Required'),
+                        onSaved: (v) => recipe.cookingTime = int.parse(v),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SingleCardStruct(
+                'Ingredients',
+                padding: padding,
+                child: AppTextField(
+                  'Separate by comma:\nOnion 2pcs, Oil 50ml,\nApple 1pcs, Egg 4pcs',
+                  prefixIcon: Icon(Icons.eco),
+                  maxLines: 8,
+                  onSaved: (v) => recipe.ingredients!.addAll(v
+                      .toString()
+                      .split(',')
+                      .map((e) => e.trim().toLowerCase())),
+                ),
+              ),
+              SingleCardStruct(
+                'Directions',
+                padding: padding,
+                child: ListView.builder(
+                  padding: EdgeInsets.zero,
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: directionsMap.values.length + 1,
+                  itemBuilder: (context, i) {
+                    if (directionsMap.values.length == i)
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          if (directionsMap.length > 1)
+                            TextButton(
+                              child: AppText(
+                                'Remove last step',
+                                color: Colors.pink,
+                              ),
+                              onPressed: () => addRemoveDirection(
+                                  directionsMap.values.length, true),
+                            ),
+                          TextButton(
+                            child: Text('Add next step'),
+                            onPressed: () => addRemoveDirection(
+                                directionsMap.values.length, false),
+                          ),
+                        ],
+                      );
+                    return directionsMap[i]!;
+                  },
+                ),
+              ),
+              Row(
+                children: [
+                  ElevatedButton(
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all(EdgeInsets.all(10.0)),
+                      shape: MaterialStateProperty.all(StadiumBorder()),
+                      backgroundColor: MaterialStateProperty.all(Colors.pink),
+                    ),
+                    child: AppText(
+                      'Save draft',
+                      font: 'Poppins',
+                    ),
+                    onPressed: () => print('Saved'),
                   ),
                   SizedBox(width: 10),
                   Expanded(
-                    child: AppTextField(
-                      'Cooking time in minutes',
-                      keyboardType: TextInputType.number,
-                      prefixIcon: Icon(Icons.schedule),
-                      validator: (v) => _checkValid(v, 0, 'Required'),
-                      onSaved: (v) => recipe.cookingTime = int.parse(v),
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        padding: MaterialStateProperty.all(EdgeInsets.all(10.0)),
+                        shape: MaterialStateProperty.all(StadiumBorder()),
+                        backgroundColor: MaterialStateProperty.all(kPrimaryColor),
+                      ),
+                      child: AppText(
+                        'Share',
+                        font: 'Poppins',
+                      ),
+                      onPressed: () => _onSubmit(),
                     ),
                   ),
                 ],
-              ),
-            ),
-            SingleCardStruct(
-              'Ingredients',
-              padding: padding,
-              child: AppTextField(
-                'Separate by comma:\nOnion 2pcs, Oil 50ml,\nApple 1pcs, Egg 4pcs',
-                prefixIcon: Icon(Icons.eco),
-                maxLines: 8,
-                onSaved: (v) => recipe.ingredients!.addAll(
-                    v.toString().split(',').map((e) => e.trim().toLowerCase())),
-              ),
-            ),
-            SingleCardStruct(
-              'Directions',
-              padding: padding,
-              child: ListView.builder(
-                padding: EdgeInsets.zero,
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: directionsMap.values.length + 1,
-                itemBuilder: (context, i) {
-                  if (directionsMap.values.length == i)
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        if (directionsMap.length > 1)
-                          TextButton(
-                            child: AppText(
-                              'Remove last step',
-                              color: Colors.pink,
-                            ),
-                            onPressed: () => addRemoveDirection(
-                                directionsMap.values.length, true),
-                          ),
-                        TextButton(
-                          child: Text('Add next step'),
-                          onPressed: () => addRemoveDirection(
-                              directionsMap.values.length, false),
-                        ),
-                      ],
-                    );
-                  return directionsMap[i]!;
-                },
-              ),
-            ),
-            ElevatedButton(
-              style: ButtonStyle(
-                padding: MaterialStateProperty.all(EdgeInsets.all(10.0)),
-                shape: MaterialStateProperty.all(StadiumBorder()),
-                backgroundColor: MaterialStateProperty.all(kPrimaryColor),
-              ),
-              child: AppText(
-                'Share',
-                fontSize: 18,
-                font: 'Poppins',
-              ),
-              onPressed: () => _onSubmit(),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -154,9 +187,16 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
   void _onSubmit() {
     recipe.direction = [];
     recipe.ingredients = [];
+    setState(() => recipe = recipe);
     if (!_formKey.currentState!.validate()) return;
     _formKey.currentState!.save();
-    print(recipe.toMapForCreate());
+    print(recipe.title);
+    print(recipe.person);
+    print(recipe.cookingTime);
+    print(recipe.overview);
+    print(recipe.ingredients);
+    print(recipe.direction);
+    context.read<RecipeBloc>().add(CreateRecipe(recipe));
   }
 
   void addRemoveDirection(int id, bool remove) {

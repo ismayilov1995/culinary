@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:culinary_app/blocs/blocs.dart';
 import 'package:culinary_app/models/models.dart';
 import 'package:culinary_app/ui/screens/screens.dart';
@@ -7,7 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RecipesListView extends StatelessWidget {
-  RecipesListView(this.title, {this.filter = const Filter()});
+  RecipesListView(this.title,
+      {this.filter = const Filter()});
 
   final String title;
   final Filter filter;
@@ -49,14 +52,12 @@ class RecipesListView extends StatelessWidget {
                         );
                       }
                       final r = state.recipeResponse.recipes![i];
-                      return RecipeHorizontalCard(
-                        r.title,
-                        person: r.person.toString(),
-                        prepareTime: '${r.cookingTime} min',
-                        imagePath: r.mainImage,
-                        onPressed: () =>
-                            RecipeDetailScreen.route(context, r.slug),
-                      );
+                      return RecipeHorizontalCard(r.title,
+                          person: r.person.toString(),
+                          prepareTime: '${r.cookingTime} min',
+                          imagePath: r.mainImage,
+                          onPressed: () =>
+                              RecipeDetailScreen.route(context, r.slug));
                     });
           } else if (state is FailLoadRecipes) {
             return Center(child: Text(state.error));

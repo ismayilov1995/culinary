@@ -44,3 +44,21 @@ class FailLoadRecipe extends RecipeState {
   @override
   List<Object> get props => [error];
 }
+
+class SuccessCreateRecipe extends RecipeState {
+  SuccessCreateRecipe(this.created);
+
+  final bool created;
+
+  @override
+  List<Object> get props => [created];
+}
+
+class FailCreateRecipe extends RecipeState {
+  FailCreateRecipe(this.error);
+
+  final String error;
+
+  @override
+  List<Object> get props => [error];
+}

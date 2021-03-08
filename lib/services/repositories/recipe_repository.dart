@@ -28,4 +28,10 @@ class RecipeRepository extends RecipeBase {
   @override
   Future<RecipeResponse> recipes({Filter? filter}) =>
       _service.recipes(filter: filter);
+
+  @override
+  Future<bool> create(Recipe recipe) {
+    return _service.create(recipe);
+    // throw Error();
+  }
 }

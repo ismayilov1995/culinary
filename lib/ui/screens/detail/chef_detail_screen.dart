@@ -40,10 +40,7 @@ class ChefDetailScreen extends StatelessWidget {
             ],
           ),
           _ChefAboutRow(email),
-          RecipesListView(
-            'Chef\'s Recipes',
-            filter: Filter(chef: id),
-          )
+          RecipesListView('Chef\'s Recipes', filter: Filter(chef: id))
         ],
       ),
     );
@@ -63,6 +60,7 @@ class _ChefAboutRow extends StatelessWidget {
         if (state is SuccessLoadChef) {
           return Container(
             alignment: Alignment.center,
+            margin: EdgeInsets.symmetric(horizontal: 20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
