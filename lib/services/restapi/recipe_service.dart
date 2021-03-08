@@ -46,7 +46,7 @@ class RecipeService extends RecipeBase {
   Future<bool> create(Recipe recipe) async {
     var rMap = recipe.toMapForCreate();
     var images = [];
-    if (recipe.imageCreate != null) {
+    if (recipe.imageCreate != null && recipe.imageCreate!.length > 0) {
       recipe.imageCreate?.forEach((e) async {
         String filename = e.path.split('/').last;
         String ext = filename.split('.').last;

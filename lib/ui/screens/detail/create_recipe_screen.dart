@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:culinary_app/blocs/blocs.dart';
 import 'package:culinary_app/models/models.dart';
 import 'package:culinary_app/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CreateRecipeScreen extends StatefulWidget {
   static const pageID = '/createRecipe';
@@ -16,11 +19,13 @@ class CreateRecipeScreen extends StatefulWidget {
 class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
   final _formKey = GlobalKey<FormState>();
   final padding = EdgeInsets.only(left: 20.0, top: 10.0, bottom: 10.0);
+  final ImagePicker _picker = ImagePicker();
   Map<int, Widget> directionsMap = Map();
   Recipe recipe = Recipe(
     ingredients: [],
     direction: [],
   );
+  File? _image;
 
   @override
   void initState() {
@@ -53,6 +58,57 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
                 backgroundColor: Colors.transparent,
                 elevation: 0,
               ),
+              Container(
+                constraints: BoxConstraints(
+                  minHeight: 90,
+                ),
+                decoration: BoxDecoration(
+                  color: kTextFieldBg,
+                  borderRadius: BorderRadius.circular(kAppRadius),
+                ),
+                child: _image == null
+                    ? Center(
+                        child: IconButton(
+                          color: kPrimaryColor,
+                          iconSize: 32,
+                          icon: Icon(Icons.camera_alt),
+                          onPressed: () => showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text('Choose image'),
+                                  content: Wrap(
+                                    direction: Axis.vertical,
+                                    children: [
+                                      TextButton.icon(
+                                        icon: Icon(Icons.camera_alt),
+                                        label: Text('Take one'),
+                                        onPressed: () =>
+                                            _pickImage(ImageSource.camera),
+                                      ),
+                                      TextButton.icon(
+                                        icon: Icon(Icons.image),
+                                        label: Text('Gallery'),
+                                        onPressed: () =>
+                                            _pickImage(ImageSource.gallery),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }),
+                        ),
+                      )
+                    : Image.file(_image!),
+              ),
+              if (_image != null)
+                TextButton(
+                    child: Text('Remove Image'),
+                    onPressed: () {
+                      recipe.imageCreate?.removeAt(0);
+                      setState(() {
+                        _image = null;
+                      });
+                    }),
               SingleCardStruct(
                 'Title',
                 padding: padding,
@@ -164,9 +220,11 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
                   Expanded(
                     child: ElevatedButton(
                       style: ButtonStyle(
-                        padding: MaterialStateProperty.all(EdgeInsets.all(10.0)),
+                        padding:
+                            MaterialStateProperty.all(EdgeInsets.all(10.0)),
                         shape: MaterialStateProperty.all(StadiumBorder()),
-                        backgroundColor: MaterialStateProperty.all(kPrimaryColor),
+                        backgroundColor:
+                            MaterialStateProperty.all(kPrimaryColor),
                       ),
                       child: AppText(
                         'Share',
@@ -227,5 +285,19 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
       return null;
     else
       return message;
+  }
+
+  _pickImage(ImageSource source) async {
+    final pickedFile = await _picker.getImage(
+        source: source, maxHeight: 600, maxWidth: 600, imageQuality: 50);
+    Navigator.pop(context);
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+        recipe.imageCreate?.add(_image!);
+      } else {
+        _image = null;
+      }
+    });
   }
 }
