@@ -8,4 +8,6 @@ abstract class RecipeBase {
   Future<bool?> delete(String slug);
 
   Future<bool> create(Recipe recipe);
+
+  Future<void> check();
 }

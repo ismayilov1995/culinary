@@ -46,7 +46,12 @@ class RecommendCard extends StatelessWidget {
                     ]),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(size.width * 0.2),
-                      child: Image.network(imagePath!, width: size.width * 0.4),
+                      child: Image.network(
+                        imagePath!,
+                        fit: BoxFit.cover,
+                        height: size.width * 0.4,
+                        width: size.width * 0.4,
+                      ),
                     ),
                   ),
                 ),

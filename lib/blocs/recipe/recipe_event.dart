@@ -42,3 +42,5 @@ class CreateRecipe extends RecipeEvent {
   @override
   List<Object?> get props => [recipe];
 }
+
+class Check extends RecipeEvent {}

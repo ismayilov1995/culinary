@@ -24,12 +24,14 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
   Recipe recipe = Recipe(
     ingredients: [],
     direction: [],
+    imageCreate: [],
   );
   File? _image;
 
   @override
   void initState() {
     super.initState();
+    context.read<RecipeBloc>().add(Check());
     directionsMap[0] = _direction(0);
   }
 
@@ -248,12 +250,6 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
     setState(() => recipe = recipe);
     if (!_formKey.currentState!.validate()) return;
     _formKey.currentState!.save();
-    print(recipe.title);
-    print(recipe.person);
-    print(recipe.cookingTime);
-    print(recipe.overview);
-    print(recipe.ingredients);
-    print(recipe.direction);
     context.read<RecipeBloc>().add(CreateRecipe(recipe));
   }
 
@@ -289,12 +285,12 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
 
   _pickImage(ImageSource source) async {
     final pickedFile = await _picker.getImage(
-        source: source, maxHeight: 600, maxWidth: 600, imageQuality: 50);
+        source: source, maxHeight: 450, maxWidth: 450, imageQuality: 50);
     Navigator.pop(context);
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
-        recipe.imageCreate?.add(_image!);
+        recipe.imageCreate!.add(_image!);
       } else {
         _image = null;
       }

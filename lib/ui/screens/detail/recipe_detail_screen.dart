@@ -92,8 +92,12 @@ class _MealOverview extends StatelessWidget {
                 boxShadow: [kCardShadow]),
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(size.width * 0.3),
-                child:
-                    Image.network(recipe.mainImage, height: size.width * 0.6)),
+                child: Image.network(
+                  recipe.mainImage,
+                  height: size.width * 0.6,
+                  width: size.width * 0.6,
+                  fit: BoxFit.cover,
+                )),
           ),
           AppText(
             recipe.title,

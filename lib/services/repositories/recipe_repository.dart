@@ -34,4 +34,7 @@ class RecipeRepository extends RecipeBase {
     return _service.create(recipe);
     // throw Error();
   }
+
+  @override
+  Future<void> check() => _service.check();
 }
