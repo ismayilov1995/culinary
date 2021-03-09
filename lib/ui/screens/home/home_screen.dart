@@ -165,6 +165,7 @@ class _RecommendRecipesRow extends StatelessWidget {
                       person: r.person.toString(),
                       prepareTime: '${r.cookingTime} min',
                       imagePath: r.mainImage,
+                      index: i,
                       onPressed: () =>
                           RecipeDetailScreen.route(context, r.slug),
                     );

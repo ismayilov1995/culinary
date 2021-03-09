@@ -9,10 +9,12 @@ class RecommendCard extends StatelessWidget {
     required this.person,
     required this.imagePath,
     this.onPressed,
+    this.index = 0,
   });
 
   final String? title, prepareTime, person, imagePath;
   final VoidCallback? onPressed;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class RecommendCard extends StatelessWidget {
           alignment: Alignment.bottomLeft,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(kAppRadius),
-            gradient: kAccentGradient,
+            gradient: index % 2 == 0 ? kPrimaryGradient : kAccentGradient,
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(kAppRadius),
