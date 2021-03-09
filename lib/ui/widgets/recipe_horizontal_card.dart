@@ -8,10 +8,11 @@ class RecipeHorizontalCard extends StatelessWidget {
     required this.person,
     required this.imagePath,
     this.onPressed,
+    this.onDelete,
   });
 
   final String? title, prepareTime, person, imagePath;
-  final VoidCallback? onPressed;
+  final VoidCallback? onPressed, onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +65,21 @@ class RecipeHorizontalCard extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-              ))
+              )),
+          if (onDelete != null)
+            Positioned(
+                right: 0,
+                bottom: 0,
+                child: PopupMenuButton(
+                  icon: Icon(Icons.more_horiz),
+                  onSelected: onDelete != null ? (v) => onDelete!() : null,
+                  itemBuilder: (v) => [
+                    PopupMenuItem(
+                      value: 0,
+                      child: Text('Delete'),
+                    ),
+                  ],
+                ))
         ],
       ),
     );

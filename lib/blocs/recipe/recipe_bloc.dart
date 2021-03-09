@@ -27,6 +27,8 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       yield* _mapCreateRecipe(event);
     } else if (event is Check) {
       yield* _mapCheckRecipe(event);
+    } else if (event is DeleteRecipe) {
+      yield* _mapDeleteRecipe(event);
     }
   }
 
@@ -68,6 +70,21 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
   Stream<RecipeState> _mapCheckRecipe(Check event) async* {
     try {
       await _repository.check();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Stream<RecipeState> _mapDeleteRecipe(DeleteRecipe event) async* {
+    try {
+      await _repository.delete(event.slug);
+      if (state is SuccessLoadRecipes) {
+        (state as SuccessLoadRecipes)
+            .recipeResponse
+            .recipes!
+            .removeWhere((e) => e.slug == event.slug);
+        yield SuccessLoadRecipes((state as SuccessLoadRecipes).recipeResponse);
+      }
     } catch (e) {
       print(e);
     }

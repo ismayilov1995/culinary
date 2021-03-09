@@ -43,4 +43,13 @@ class CreateRecipe extends RecipeEvent {
   List<Object?> get props => [recipe];
 }
 
+class DeleteRecipe extends RecipeEvent {
+  DeleteRecipe(this.slug);
+
+  final String slug;
+
+  @override
+  List<Object?> get props => [slug];
+}
+
 class Check extends RecipeEvent {}

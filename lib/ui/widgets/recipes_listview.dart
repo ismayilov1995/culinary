@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:culinary_app/blocs/blocs.dart';
 import 'package:culinary_app/models/models.dart';
 import 'package:culinary_app/ui/screens/screens.dart';
@@ -9,11 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RecipesListView extends StatelessWidget {
-  RecipesListView(this.title,
-      {this.filter = const Filter()});
+  RecipesListView(
+    this.title, {
+    this.filter = const Filter(),
+    this.showDelete = false,
+  });
 
   final String title;
   final Filter filter;
+  final bool showDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +58,11 @@ class RecipesListView extends StatelessWidget {
                           person: r.person.toString(),
                           prepareTime: '${r.cookingTime} min',
                           imagePath: r.mainImage,
+                          onDelete: !showDelete
+                              ? null
+                              : () => context
+                                  .read<RecipeBloc>()
+                                  .add(DeleteRecipe(r.slug!)),
                           onPressed: () =>
                               RecipeDetailScreen.route(context, r.slug));
                     });
