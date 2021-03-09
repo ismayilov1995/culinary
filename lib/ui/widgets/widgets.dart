@@ -13,3 +13,4 @@ export 'logo_horizontal.dart';
 export 'recipes_listview.dart';
 export 'auth_painter.dart';
 export 'search_row.dart';
+export 'app_theme.dart';

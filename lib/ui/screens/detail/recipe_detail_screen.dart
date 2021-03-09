@@ -13,7 +13,7 @@ class RecipeDetailScreen extends StatelessWidget {
 
   RecipeDetailScreen(this.selectedRecipe);
 
-  final String? selectedRecipe;
+  final String selectedRecipe;
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +28,34 @@ class RecipeDetailScreen extends StatelessWidget {
                   child: ListView(
                     physics: BouncingScrollPhysics(),
                     children: [
-                      AppBar(
-                        elevation: 0,
-                        backgroundColor: Colors.transparent,
-                        iconTheme: IconThemeData(color: kBgColor),
+                      BlocListener<FavoriteBloc, FavoriteState>(
+                        listener: (context, state) {
+                          if (state is AddedFavorite) {
+                            ScaffoldMessenger.of(context)
+                              ..hideCurrentSnackBar()
+                              ..showSnackBar(
+                                  SnackBar(content: Text('Favorite')));
+                          }
+                        },
+                        child: CulinaryAppBar(
+                          actions: [
+                            TextButton.icon(
+                              icon: Icon(
+                                Icons.favorite,
+                                color: kPrimaryColor,
+                              ),
+                              label: AppText(
+                                'Favorite',
+                                color: kPrimaryColor,
+                              ),
+                              onPressed: () {
+                                context
+                                    .read<FavoriteBloc>()
+                                    .add(AddRemoveFavorite(selectedRecipe));
+                              },
+                            )
+                          ],
+                        ),
                       ),
                       _MealOverview(state.recipe),
                       _ChefInformationCard(state.recipe.chef),
@@ -69,6 +93,22 @@ class RecipeDetailScreen extends StatelessWidget {
         ),
         child!
       ],
+    );
+  }
+}
+
+class CulinaryAppBar extends StatelessWidget {
+  CulinaryAppBar({this.actions});
+
+  final List<Widget>? actions;
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      iconTheme: IconThemeData(color: kPrimaryColor),
+      actions: actions,
     );
   }
 }

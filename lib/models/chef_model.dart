@@ -42,7 +42,8 @@ class Chef {
         name: json["name"],
         phone: json["phone"],
         place: json["place"],
-        title: json["title"],
+        // title: json["title"],
+        title: 'Chef',
         role: json["role"],
         verified: json["verified"],
       );

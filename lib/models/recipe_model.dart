@@ -23,7 +23,7 @@ class RecipeResponse {
   factory RecipeResponse.fromMap(Map<String, dynamic> json) => RecipeResponse(
         recipes: List<Recipe>.from(
             json["recipes"].map((e) => Recipe.fromMapForHome(e))),
-        total: json["total"],
+        total: json["total"] ?? 0,
       );
 
   Map<String, dynamic> toMap() => {
