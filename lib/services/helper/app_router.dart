@@ -10,8 +10,7 @@ class AppRouting {
     final arguments = settings.arguments;
     switch (settings.name) {
       case HomeScreen.pageID:
-        return MaterialPageRoute(
-            builder: (_) => HomeScreen());
+        return MaterialPageRoute(builder: (_) => HomeScreen());
       case RecipeDetailScreen.pageID:
         return MaterialPageRoute(
             builder: (_) => BlocProvider(
@@ -45,6 +44,12 @@ class AppRouting {
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
               create: (context) => RecipeBloc(), child: CreateRecipeScreen()),
+        );
+      case ResultScreen.pageID:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+              create: (context) => RecipeBloc(),
+              child: ResultScreen(arguments as String)),
         );
       default:
         return MaterialPageRoute(builder: (_) => SplashScreen());

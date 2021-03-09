@@ -13,6 +13,8 @@ class AppTextField extends StatelessWidget {
     this.keyboardType,
     this.enabled = true,
     this.validator,
+    this.controller,
+    this.focusNode,
   });
 
   final String hintText;
@@ -22,10 +24,13 @@ class AppTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final FormFieldValidator<String>? validator;
   final ValueChanged? onChanged, onSaved;
+  final TextEditingController? controller;
+  final FocusNode? focusNode;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       onChanged: onChanged,
       onSaved: onSaved,
       maxLines: maxLines,
@@ -33,6 +38,7 @@ class AppTextField extends StatelessWidget {
       enabled: enabled,
       keyboardType: keyboardType,
       validator: validator,
+      focusNode: focusNode,
       decoration: InputDecoration(
           hintText: hintText,
           prefixIcon: prefixIcon,

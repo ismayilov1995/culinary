@@ -1,10 +1,15 @@
 class Filter {
   const Filter(
-      {this.skip, this.dateFrom, this.dateTo, this.chef, this.popular});
+      {this.skip,
+      this.dateFrom,
+      this.dateTo,
+      this.chef,
+      this.popular,
+      this.query});
 
   final int? skip;
   final DateTime? dateFrom, dateTo;
-  final String? chef;
+  final String? chef, query;
   final bool? popular;
 
   Filter copyWith({
@@ -12,6 +17,7 @@ class Filter {
     DateTime? dateFrom,
     DateTime? dateTo,
     String? chef,
+    String? query,
     bool? popular,
   }) =>
       Filter(
@@ -20,6 +26,7 @@ class Filter {
         dateTo: dateTo ?? this.dateTo,
         chef: chef ?? this.chef,
         popular: popular ?? this.popular,
+        query: query ?? this.query,
       );
 
   Map<String, dynamic> toMap() => {
@@ -28,5 +35,6 @@ class Filter {
         if (dateTo != null) 'date_to': dateTo!.toIso8601String() + 'Z',
         if (chef != null) 'chef': chef,
         if (popular != null) 'popular': popular,
+        if (query != null) 'search': query,
       };
 }
