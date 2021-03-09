@@ -21,7 +21,7 @@ class HomeScreen extends StatelessWidget {
           physics: BouncingScrollPhysics(),
           children: [
             _UserWelcomeRow(),
-            _SearchRow(),
+            SearchRow(),
             BlocProvider(
                 create: (context) => RecipeBloc(),
                 child: _RecommendRecipesRow()),
@@ -117,59 +117,6 @@ class _UserWelcomeRow extends StatelessWidget {
         CreateRecipeScreen.route(context);
         break;
     }
-  }
-}
-
-class _SearchRow extends StatefulWidget {
-  @override
-  __SearchRowState createState() => __SearchRowState();
-}
-
-class __SearchRowState extends State<_SearchRow> {
-  late TextEditingController _textController;
-  String query = "";
-
-  @override
-  void initState() {
-    super.initState();
-    _textController = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    _textController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: AppTextField('Find recipes or chef',
-                controller: _textController,
-                prefixIcon: Icon(Icons.search), onChanged: (v) {
-              query = v;
-            }),
-          ),
-          SizedBox(width: 20),
-          SearchButton(
-            onPressed: () async {
-              if (query.length > 4) {
-                await ResultScreen.route(context, query);
-                setState(() {
-                  FocusScope.of(context).requestFocus(FocusNode());
-                  _textController.clear();
-                  query = "";
-                });
-              }
-            },
-          ),
-        ],
-      ),
-    );
   }
 }
 
