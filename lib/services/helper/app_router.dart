@@ -11,8 +11,7 @@ class AppRouting {
     switch (settings.name) {
       case HomeScreen.pageID:
         return MaterialPageRoute(
-            builder: (_) => BlocProvider(
-                create: (context) => RecipeBloc(), child: HomeScreen()));
+            builder: (_) => HomeScreen());
       case RecipeDetailScreen.pageID:
         return MaterialPageRoute(
             builder: (_) => BlocProvider(

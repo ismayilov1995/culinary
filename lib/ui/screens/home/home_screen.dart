@@ -1,4 +1,5 @@
 import 'package:culinary_app/models/auth_model.dart';
+import 'package:culinary_app/models/models.dart';
 import 'package:culinary_app/services/repositories/repositories.dart';
 import 'package:culinary_app/ui/screens/screens.dart';
 import 'package:culinary_app/ui/widgets/widgets.dart';
@@ -21,8 +22,13 @@ class HomeScreen extends StatelessWidget {
           children: [
             _UserWelcomeRow(),
             _SearchRow(),
-            _RecommendRecipesRow(),
-            RecipesListView('Latest Recipes'),
+            BlocProvider(
+                create: (context) => RecipeBloc(),
+                child: _RecommendRecipesRow()),
+            BlocProvider(
+              create: (context) => RecipeBloc(),
+              child: RecipesListView('Latest Recipes'),
+            )
           ],
         ),
       ),
@@ -138,6 +144,7 @@ class _SearchRow extends StatelessWidget {
 class _RecommendRecipesRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    context.read<RecipeBloc>().add(LoadRecipes(filter: Filter(popular: true)));
     return SingleCardStruct(
       'Recommended',
       child: BlocBuilder<RecipeBloc, RecipeState>(
