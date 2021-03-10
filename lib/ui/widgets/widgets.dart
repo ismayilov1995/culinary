@@ -14,3 +14,5 @@ export 'recipes_listview.dart';
 export 'auth_painter.dart';
 export 'search_row.dart';
 export 'app_theme.dart';
+export 'user_welcome.dart';
+export 'recommended_recipes_list.dart';
