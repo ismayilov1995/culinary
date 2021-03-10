@@ -43,7 +43,7 @@ class ChefDetailScreen extends StatelessWidget {
           ),
           _ChefAboutRow(email),
           RecipesListView('Chef\'s Recipes',
-              filter: Filter(chef: id), showDelete: true)
+              filter: Filter(chef: id), showDelete: isUser)
         ],
       ),
     );

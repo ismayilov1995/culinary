@@ -55,7 +55,7 @@ class RecipeDetailScreen extends StatelessWidget {
                     ),
                   ),
                   _MealOverview(state.recipe),
-                  _ChefInformationCard(state.recipe.chef),
+                  _ChefInformationCard(state.recipe.chef!),
                   _IngredientsRow(),
                   _PrepareRow(state.recipe.direction!),
                   LogoHorizontal(),
@@ -173,7 +173,7 @@ class _MealOverview extends StatelessWidget {
 class _ChefInformationCard extends StatelessWidget {
   _ChefInformationCard(this.chef);
 
-  final Chef? chef;
+  final Chef chef;
 
   @override
   Widget build(BuildContext context) {
@@ -186,20 +186,20 @@ class _ChefInformationCard extends StatelessWidget {
       ),
       child: ListTile(
         leading: AppCircleAvatar(
-          imagePath: chef!.avatar,
+          imagePath: chef.avatar,
         ),
         title: AppText(
-          chef!.name,
+          chef.name,
           font: 'Pacifico',
           fontSize: 20,
         ),
         subtitle: AppText(
-          chef!.title,
+          chef.title,
           color: Theme.of(context).helperTextColor,
         ),
         trailing: Icon(Icons.arrow_forward_ios),
-        onTap: () =>
-            ChefDetailScreen.route(context, email: chef!.email, id: chef!.id),
+        onTap: () => ChefDetailScreen.route(context,
+            email: chef.email, id: chef.id, isUser: true),
       ),
     );
   }
