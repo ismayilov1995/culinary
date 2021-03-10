@@ -30,7 +30,9 @@ class ChefDetailScreen extends StatelessWidget {
           AppBar(
             elevation: 0,
             backgroundColor: Colors.transparent,
-            iconTheme: IconThemeData(color: kBgColor),
+            iconTheme: IconThemeData(
+              color: Theme.of(context).primaryColor,
+            ),
             actions: [
               if (isUser)
                 IconButton(
@@ -71,7 +73,8 @@ class _ChefAboutRow extends StatelessWidget {
                   font: 'Pacifico',
                   fontSize: 26.0,
                 ),
-                AppText(state.chef!.title, color: kTextColor),
+                AppText(state.chef!.title,
+                    color: Theme.of(context).helperTextColor),
                 SizedBox(height: 10.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -79,18 +82,28 @@ class _ChefAboutRow extends StatelessWidget {
                     Icon(
                       Icons.favorite,
                       size: 16,
-                      color: kTextColor,
+                      color: Theme.of(context).helperTextColor,
                     ),
-                    AppText('54', color: kTextColor),
+                    AppText(
+                      '54',
+                      color: Theme.of(context).helperTextColor,
+                    ),
                     SizedBox(width: 20.0),
-                    Icon(Icons.face, size: 16, color: kTextColor),
-                    AppText('12 follower', color: kTextColor),
+                    Icon(
+                      Icons.face,
+                      size: 16,
+                      color: Theme.of(context).helperTextColor,
+                    ),
+                    AppText(
+                      '12 follower',
+                      color: Theme.of(context).helperTextColor,
+                    ),
                   ],
                 ),
                 SizedBox(height: 20),
                 AppText(
                   state.chef!.about ?? 'Chefs biography',
-                  color: kTextColor,
+                  color: Theme.of(context).helperTextColor,
                   align: TextAlign.center,
                 ),
               ],

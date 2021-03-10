@@ -1,5 +1,5 @@
-import 'package:culinary_app/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'app_theme.dart';
 
 class AppCircleAvatar extends StatelessWidget {
   AppCircleAvatar({required this.imagePath, this.diameter = 50});
@@ -14,7 +14,7 @@ class AppCircleAvatar extends StatelessWidget {
       width: diameter,
       decoration: BoxDecoration(
           border: Border.all(width: 4, color: Colors.white),
-          boxShadow: [kCardShadow],
+          boxShadow: [Theme.of(context).cardShadow],
           shape: BoxShape.circle,
           image: DecorationImage(
               fit: BoxFit.cover,

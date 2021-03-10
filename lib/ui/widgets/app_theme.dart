@@ -7,13 +7,13 @@ class AppTheme {
   const AppTheme._();
 
   static final lightTheme = ThemeData.light().copyWith(
-    primaryColor: Colors.pink,
+    primaryColor: kLightPrimaryColor,
     scaffoldBackgroundColor: Colors.white,
     visualDensity: VisualDensity.adaptivePlatformDensity,
   );
 
   static final darkTheme = ThemeData.dark().copyWith(
-    primaryColor: kPrimaryColor,
+    primaryColor: kDarkBgColor,
     visualDensity: VisualDensity.adaptivePlatformDensity,
   );
 
@@ -33,4 +33,18 @@ class AppTheme {
           themeMode == ThemeMode.light ? Colors.black : Colors.white,
     ));
   }
+}
+
+extension ThemeExtras on ThemeData {
+  Color get recipeCardBG => isLight ? kLightCardBg : kDarkCardBg;
+
+  Color get helperTextColor => isLight ? kLightHelperTC : kDarkHelperTC;
+
+  Color get textFieldBG => isLight ? kLightTextFieldBg : kDarkTextFieldBg;
+
+  Color get textColor => isLight ? kDarkCardBg : kLightCardBg;
+
+  BoxShadow get cardShadow => isLight ? kLightCardShadow : kDarkCardShadow;
+
+  bool get isLight => this.brightness == Brightness.light;
 }

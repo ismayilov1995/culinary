@@ -56,7 +56,8 @@ class _CulinaryAppState extends State<CulinaryApp> with WidgetsBindingObserver {
       title: 'Culinary app',
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      themeMode: context.select((ThemeCubit cubit) => cubit.state.themeMode),
+      // themeMode: context.select((ThemeCubit cubit) => cubit.state.themeMode),
+      themeMode: ThemeMode.light,
       initialRoute: '/',
       onGenerateRoute: AppRouting.router,
     );

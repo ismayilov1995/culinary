@@ -26,9 +26,9 @@ class RecipeHorizontalCard extends StatelessWidget {
             margin: EdgeInsets.only(top: 25),
             padding: EdgeInsets.all(20.0),
             decoration: BoxDecoration(
-                color: Colors.white,
+                color: Theme.of(context).recipeCardBG,
                 borderRadius: BorderRadius.circular(kAppRadius),
-                boxShadow: [kCardShadow]),
+                boxShadow: [Theme.of(context).cardShadow]),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -54,7 +54,7 @@ class RecipeHorizontalCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(width: 4, color: Colors.white),
-                  boxShadow: [kCardShadow],
+                  boxShadow: [Theme.of(context).cardShadow],
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(60.0),

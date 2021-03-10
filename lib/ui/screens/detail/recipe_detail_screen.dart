@@ -18,61 +18,59 @@ class RecipeDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read<RecipeBloc>().add(LoadRecipe(this.selectedRecipe));
-    return Scaffold(
-        backgroundColor: Colors.white,
-        body: BlocBuilder<RecipeBloc, RecipeState>(
-          builder: (context, state) {
-            if (state is SuccessLoadRecipe) {
-              return _scaffoldBackground(
-                  image: state.recipe.mainImage,
-                  child: ListView(
-                    physics: BouncingScrollPhysics(),
-                    children: [
-                      BlocListener<FavoriteBloc, FavoriteState>(
-                        listener: (context, state) {
-                          if (state is AddedFavorite) {
-                            ScaffoldMessenger.of(context)
-                              ..hideCurrentSnackBar()
-                              ..showSnackBar(
-                                  SnackBar(content: Text('Favorite')));
-                          }
-                        },
-                        child: CulinaryAppBar(
-                          actions: [
-                            TextButton.icon(
-                              icon: Icon(
-                                Icons.favorite,
-                                color: kPrimaryColor,
-                              ),
-                              label: AppText(
-                                'Favorite',
-                                color: kPrimaryColor,
-                              ),
-                              onPressed: () {
-                                context
-                                    .read<FavoriteBloc>()
-                                    .add(AddRemoveFavorite(selectedRecipe));
-                              },
-                            )
-                          ],
-                        ),
-                      ),
-                      _MealOverview(state.recipe),
-                      _ChefInformationCard(state.recipe.chef),
-                      _IngredientsRow(),
-                      _PrepareRow(state.recipe.direction!),
-                      LogoHorizontal(),
-                    ],
-                  ));
-            } else if (state is FailLoadRecipe) {
-              return Center(child: Text(state.error));
-            }
-            return Center(child: CircularProgressIndicator());
-          },
-        ));
+    return Scaffold(body: BlocBuilder<RecipeBloc, RecipeState>(
+      builder: (context, state) {
+        if (state is SuccessLoadRecipe) {
+          return _scaffoldBackground(context,
+              image: state.recipe.mainImage,
+              child: ListView(
+                physics: BouncingScrollPhysics(),
+                children: [
+                  BlocListener<FavoriteBloc, FavoriteState>(
+                    listener: (context, state) {
+                      if (state is AddedFavorite) {
+                        ScaffoldMessenger.of(context)
+                          ..hideCurrentSnackBar()
+                          ..showSnackBar(SnackBar(content: Text('Favorite')));
+                      }
+                    },
+                    child: CulinaryAppBar(
+                      actions: [
+                        TextButton.icon(
+                          icon: Icon(
+                            Icons.favorite,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          label: AppText(
+                            'Favorite',
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          onPressed: () {
+                            context
+                                .read<FavoriteBloc>()
+                                .add(AddRemoveFavorite(selectedRecipe));
+                          },
+                        )
+                      ],
+                    ),
+                  ),
+                  _MealOverview(state.recipe),
+                  _ChefInformationCard(state.recipe.chef),
+                  _IngredientsRow(),
+                  _PrepareRow(state.recipe.direction!),
+                  LogoHorizontal(),
+                ],
+              ));
+        } else if (state is FailLoadRecipe) {
+          return Center(child: Text(state.error));
+        }
+        return Center(child: CircularProgressIndicator());
+      },
+    ));
   }
 
-  Widget _scaffoldBackground({required String image, Widget? child}) {
+  Widget _scaffoldBackground(BuildContext context,
+      {required String image, Widget? child}) {
     return Stack(
       children: [
         Container(
@@ -89,7 +87,10 @@ class RecipeDetailScreen extends StatelessWidget {
               gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [Colors.white.withOpacity(0), Colors.white])),
+                  colors: [
+                Colors.white.withOpacity(0),
+                Theme.of(context).scaffoldBackgroundColor
+              ])),
         ),
         child!
       ],
@@ -107,7 +108,9 @@ class CulinaryAppBar extends StatelessWidget {
     return AppBar(
       elevation: 0,
       backgroundColor: Colors.transparent,
-      iconTheme: IconThemeData(color: kPrimaryColor),
+      iconTheme: IconThemeData(
+        color: Theme.of(context).primaryColor,
+      ),
       actions: actions,
     );
   }
@@ -129,7 +132,7 @@ class _MealOverview extends StatelessWidget {
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(width: 6, color: Colors.white),
-                boxShadow: [kCardShadow]),
+                boxShadow: [Theme.of(context).cardShadow]),
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(size.width * 0.3),
                 child: Image.network(
@@ -153,7 +156,7 @@ class _MealOverview extends StatelessWidget {
                   .toList()),
           AppText(
             recipe.overview,
-            color: kTextColor,
+            color: Theme.of(context).helperTextColor,
             align: TextAlign.center,
           ),
           SizedBox(height: 10.0),
@@ -177,9 +180,9 @@ class _ChefInformationCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20.0),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).recipeCardBG,
         borderRadius: BorderRadius.circular(kAppRadius),
-        boxShadow: [kCardShadow],
+        boxShadow: [Theme.of(context).cardShadow],
       ),
       child: ListTile(
         leading: AppCircleAvatar(
@@ -192,7 +195,7 @@ class _ChefInformationCard extends StatelessWidget {
         ),
         subtitle: AppText(
           chef!.title,
-          color: kTextColor,
+          color: Theme.of(context).helperTextColor,
         ),
         trailing: Icon(Icons.arrow_forward_ios),
         onTap: () =>
@@ -253,7 +256,6 @@ class _PrepareRow extends StatelessWidget {
                         children: [
                           CircleAvatar(
                             radius: 15,
-                            backgroundColor: kPrimaryColor,
                             child: Text((direction.indexOf(e) + 1).toString()),
                           ),
                           Container(

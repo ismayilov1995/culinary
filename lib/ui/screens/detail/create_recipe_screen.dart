@@ -55,8 +55,8 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
             padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 20.0),
             children: [
               AppBar(
-                title: AppText('New recipe', color: kPrimaryColor),
-                iconTheme: IconThemeData(color: kPrimaryColor),
+                title: AppText('New recipe', color: Theme.of(context).primaryColor,),
+                iconTheme: IconThemeData(color: Theme.of(context).primaryColor,),
                 backgroundColor: Colors.transparent,
                 elevation: 0,
               ),
@@ -65,13 +65,13 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
                   minHeight: 90,
                 ),
                 decoration: BoxDecoration(
-                  color: kTextFieldBg,
+                  color: Theme.of(context).textFieldBG,
                   borderRadius: BorderRadius.circular(kAppRadius),
                 ),
                 child: _image == null
                     ? Center(
                         child: IconButton(
-                          color: kPrimaryColor,
+                          color: Theme.of(context).primaryColor,
                           iconSize: 32,
                           icon: Icon(Icons.camera_alt),
                           onPressed: () => showDialog(
@@ -226,7 +226,7 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
                             MaterialStateProperty.all(EdgeInsets.all(10.0)),
                         shape: MaterialStateProperty.all(StadiumBorder()),
                         backgroundColor:
-                            MaterialStateProperty.all(kPrimaryColor),
+                            MaterialStateProperty.all(Theme.of(context).primaryColor,),
                       ),
                       child: AppText(
                         'Share',

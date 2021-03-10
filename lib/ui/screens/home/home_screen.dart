@@ -46,14 +46,14 @@ class _UserWelcomeRow extends StatelessWidget {
           child: ListTile(
             title: AppText(
               'Welcome',
-              color: kTextColor,
+              color: Theme.of(context).helperTextColor,
               fontSize: 14,
             ),
             subtitle: AppText(
               authenticated ? state.auth!.user.name : 'Guest chef',
-              color: Colors.black,
               font: 'Pacifico',
               fontSize: 26,
+              color: Theme.of(context).textColor,
             ),
             trailing: PopupMenuButton(
               child: AppCircleAvatar(

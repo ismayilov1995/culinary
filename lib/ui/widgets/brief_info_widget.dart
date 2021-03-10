@@ -2,10 +2,10 @@ import 'package:culinary_app/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class BriefInfoWidget extends StatelessWidget {
-  BriefInfoWidget(this.prepareTime, this.person, {this.color = kTextColor});
+  BriefInfoWidget(this.prepareTime, this.person, {this.color});
 
   final String? prepareTime, person;
-  final Color color;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -13,13 +13,13 @@ class BriefInfoWidget extends StatelessWidget {
       children: [
         Icon(
           Icons.access_time,
-          color: color,
+          color: color ?? Theme.of(context).helperTextColor,
           size: 16,
         ),
         SizedBox(width: 5),
         AppText(
           prepareTime,
-          color: color,
+          color: color ?? Theme.of(context).helperTextColor,
         ),
         SizedBox(width: 10),
         Row(
@@ -27,13 +27,13 @@ class BriefInfoWidget extends StatelessWidget {
           children: [
             Icon(
               Icons.supervisor_account,
-              color: color,
+              color: color ?? Theme.of(context).helperTextColor,
               size: 16,
             ),
             SizedBox(width: 5),
             AppText(
               person! + ' person',
-              color: color,
+              color: color ?? Theme.of(context).helperTextColor,
             ),
           ],
         ),

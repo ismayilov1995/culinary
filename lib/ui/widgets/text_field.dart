@@ -44,8 +44,8 @@ class AppTextField extends StatelessWidget {
           prefixIcon: prefixIcon,
           suffixIcon: suffixIcon,
           filled: true,
-          fillColor: kTextFieldBg,
-          focusColor: kTextFieldBg,
+          fillColor: Theme.of(context).textFieldBG,
+          focusColor: Theme.of(context).textFieldBG,
           contentPadding: maxLines == null
               ? EdgeInsets.zero
               : EdgeInsets.symmetric(vertical: 10.0),

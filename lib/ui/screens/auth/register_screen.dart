@@ -202,14 +202,13 @@ class _SubmitRow extends StatelessWidget {
               'Create\naccount',
               fontSize: 42,
               font: 'Poppins',
-              color: kPrimaryColor,
+              color: Theme.of(context).primaryColor,
               fontWeight: FontWeight.w600,
             ),
             state.loading
                 ? CircularProgressIndicator()
                 : FloatingActionButton(
                     child: Icon(Icons.arrow_forward_ios_outlined),
-                    backgroundColor: kPrimaryColor,
                     onPressed: () => context.read<RegisterCubit>().onSubmit())
           ],
         ),

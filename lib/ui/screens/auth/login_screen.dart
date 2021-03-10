@@ -57,7 +57,7 @@ class LoginScreen extends StatelessWidget {
                                 child: Text(
                                   'Forgot Password?',
                                   style: TextStyle(
-                                      color: kTextColor,
+                                      color: Theme.of(context).helperTextColor,
                                       decoration: TextDecoration.underline),
                                 ),
                                 onPressed: () {}),
@@ -148,14 +148,13 @@ class _SubmitRow extends StatelessWidget {
               'Sign in',
               fontSize: 42,
               font: 'Poppins',
-              color: kPrimaryColor,
+              color: Theme.of(context).primaryColor,
               fontWeight: FontWeight.w600,
             ),
             state.loading
                 ? CircularProgressIndicator()
                 : FloatingActionButton(
                     child: Icon(Icons.arrow_forward_ios_outlined),
-                    backgroundColor: kPrimaryColor,
                     onPressed: () => context.read<LoginCubit>().logIn())
           ],
         ),

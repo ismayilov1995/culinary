@@ -14,7 +14,7 @@ class SearchButton extends StatelessWidget {
         height: 45,
         width: 50,
         decoration: BoxDecoration(
-            gradient: kPrimaryGradient,
+            gradient: kLightPrimaryGradient,
             borderRadius: BorderRadius.circular(kAppRadius)),
         child: Icon(Icons.search, color: Colors.white),
       ),

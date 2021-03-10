@@ -28,7 +28,7 @@ class RecommendCard extends StatelessWidget {
           alignment: Alignment.bottomLeft,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(kAppRadius),
-            gradient: index % 2 == 0 ? kPrimaryGradient : kAccentGradient,
+            gradient: index % 2 == 0 ? kLightPrimaryGradient : kLightAccentGradient,
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(kAppRadius),

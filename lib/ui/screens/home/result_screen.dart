@@ -32,8 +32,8 @@ class _ResultScreenState extends State<ResultScreen> {
       body: ListView(
         children: [
           AppBar(
-            iconTheme: IconThemeData(color: kPrimaryColor),
-            title: AppText('Result', color: kPrimaryColor),
+            iconTheme: IconThemeData(color: Theme.of(context).primaryColor,),
+            title: AppText('Result', color: Theme.of(context).primaryColor,),
             backgroundColor: Colors.transparent,
             elevation: 0,
           ),

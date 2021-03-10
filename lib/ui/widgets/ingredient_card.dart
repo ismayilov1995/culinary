@@ -11,7 +11,7 @@ class IngredientCard extends StatelessWidget {
       margin: EdgeInsets.only(right: 20.0),
       padding: EdgeInsets.only(left: 10.0, bottom: 10.0),
       decoration: BoxDecoration(
-        color: kTextFieldBg,
+        color: Theme.of(context).textFieldBG,
         borderRadius: BorderRadius.circular(kAppRadius),
       ),
       child: Stack(
@@ -29,7 +29,7 @@ class IngredientCard extends StatelessWidget {
               AppText('Egg', fontSize: 16, fontWeight: FontWeight.w600),
               AppText(
                 '1/2 fruit',
-                color: kTextColor,
+                color: Theme.of(context).helperTextColor,
                 fontSize: 12,
               ),
             ],
