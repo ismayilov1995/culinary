@@ -34,7 +34,7 @@ class ChefService extends ChefBase {
   }
 
   @override
-  Future<Auth> login({String? email, String? password}) async {
+  Future<Auth> login(String email, String password) async {
     final res = await dio
         .post('auth/login', data: {'email': email, 'password': password});
     return Auth.authFromMap(res.toString());
@@ -47,6 +47,7 @@ class ChefService extends ChefBase {
     else
       await dio.post('auth/logout', data: {'refresh_token': refreshToken});
   }
+
 
   @override
   Future<Auth> register(Chef chef) async {

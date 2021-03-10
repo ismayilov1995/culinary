@@ -56,8 +56,8 @@ class ChefRepository extends ChefBase {
   }
 
   @override
-  Future<Auth> login({String? email, String? password}) async {
-    final auth = await _service.login(email: email, password: password);
+  Future<Auth> login(String email, String password) async {
+    final auth = await _service.login(email, password);
     await _storage.saveAuth(auth);
     _controller.add(AuthStatus.authenticated);
     return auth;
