@@ -1,6 +1,5 @@
 import 'package:culinary_app/models/models.dart';
 import 'package:culinary_app/ui/widgets/widgets.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ResultScreen extends StatefulWidget {
@@ -32,8 +31,13 @@ class _ResultScreenState extends State<ResultScreen> {
       body: ListView(
         children: [
           AppBar(
-            iconTheme: IconThemeData(color: Theme.of(context).primaryColor,),
-            title: AppText('Result', color: Theme.of(context).primaryColor,),
+            iconTheme: IconThemeData(
+              color: Theme.of(context).primaryColor,
+            ),
+            title: AppText(
+              'Result',
+              color: Theme.of(context).primaryColor,
+            ),
             backgroundColor: Colors.transparent,
             elevation: 0,
           ),

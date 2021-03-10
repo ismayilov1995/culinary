@@ -1,7 +1,3 @@
-import 'package:culinary_app/models/auth_model.dart';
-import 'package:culinary_app/models/models.dart';
-import 'package:culinary_app/services/repositories/repositories.dart';
-import 'package:culinary_app/ui/screens/screens.dart';
 import 'package:culinary_app/ui/widgets/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

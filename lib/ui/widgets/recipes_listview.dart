@@ -38,20 +38,12 @@ class RecipesListView extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 20.0),
                     itemCount: loaded + 1,
                     itemBuilder: (context, i) {
-                      if (loaded == i) {
-                        return TextButton(
-                          child: Text('Load more'),
-                          onPressed: () {
-                            if (loaded == state.recipeResponse.total) {
-                              ScaffoldMessenger.of(context)
-                                ..hideCurrentSnackBar()
-                                ..showSnackBar(SnackBar(
-                                    content: Text('Sorry, no more recipes')));
-                            }
-                            context.read<RecipeBloc>().add(LoadRecipes(
-                                filter: filter.copyWith(skip: loaded)));
-                          },
-                        );
+                      if (i == loaded) {
+                        return _loadMore(loaded, state.recipeResponse.total,
+                            loadMore: () {
+                          context.read<RecipeBloc>().add(LoadRecipes(
+                              filter: filter.copyWith(skip: loaded)));
+                        });
                       }
                       final r = state.recipeResponse.recipes![i];
                       return RecipeHorizontalCard(r.title,
@@ -73,5 +65,21 @@ class RecipesListView extends StatelessWidget {
         },
       ),
     );
+  }
+
+  Widget _loadMore(int loaded, int? total, {required VoidCallback loadMore}) {
+    if (loaded != total) {
+      return TextButton(
+        child: Text('Load more'),
+        onPressed: loadMore,
+      );
+    }
+    return Container(
+        alignment: Alignment.center,
+        margin: EdgeInsets.symmetric(vertical: 20.0),
+        child: AppText(
+          'No more to show',
+          fontSize: 16,
+        ));
   }
 }
