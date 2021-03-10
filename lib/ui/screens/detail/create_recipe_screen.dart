@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:culinary_app/blocs/blocs.dart';
 import 'package:culinary_app/models/models.dart';
+import 'package:culinary_app/services/repositories/repositories.dart';
 import 'package:culinary_app/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,16 +39,24 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocListener<RecipeBloc, RecipeState>(
-        listener: (context, state) {
-          if (state is SuccessCreateRecipe) {
-            Navigator.pop(context);
-          } else if (state is FailCreateRecipe) {
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(SnackBar(content: Text(state.error)));
-          }
-        },
+      body: MultiBlocListener(
+        listeners: [
+          BlocListener<RecipeBloc, RecipeState>(listener: (context, state) {
+            if (state is SuccessCreateRecipe) {
+              Navigator.pop(context);
+            } else if (state is FailCreateRecipe) {
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(SnackBar(content: Text(state.error)));
+            }
+          }),
+          BlocListener<AuthenticationBloc, AuthenticationState>(
+              listener: (context, state) {
+            if (state.status == AuthStatus.unauthenticated) {
+              Navigator.pop(context);
+            }
+          })
+        ],
         child: Form(
           key: _formKey,
           child: ListView(
@@ -55,8 +64,13 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
             padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 20.0),
             children: [
               AppBar(
-                title: AppText('New recipe', color: Theme.of(context).primaryColor,),
-                iconTheme: IconThemeData(color: Theme.of(context).primaryColor,),
+                title: AppText(
+                  'New recipe',
+                  color: Theme.of(context).primaryColor,
+                ),
+                iconTheme: IconThemeData(
+                  color: Theme.of(context).primaryColor,
+                ),
                 backgroundColor: Colors.transparent,
                 elevation: 0,
               ),
@@ -225,8 +239,9 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
                         padding:
                             MaterialStateProperty.all(EdgeInsets.all(10.0)),
                         shape: MaterialStateProperty.all(StadiumBorder()),
-                        backgroundColor:
-                            MaterialStateProperty.all(Theme.of(context).primaryColor,),
+                        backgroundColor: MaterialStateProperty.all(
+                          Theme.of(context).primaryColor,
+                        ),
                       ),
                       child: AppText(
                         'Share',

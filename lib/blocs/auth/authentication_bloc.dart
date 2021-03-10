@@ -11,10 +11,19 @@ part 'authentication_state.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
-  AuthenticationBloc() : super(const AuthenticationState.unknown()) {
+  AuthenticationBloc._internal() : super(const AuthenticationState.unknown()) {
     _chefRepository.checkAuthenticated();
     _subscription =
         _chefRepository.status.listen((s) => add(AuthStatusChanged(s)));
+  }
+
+  // ignore: close_sinks
+  static AuthenticationBloc? _authenticationBloc;
+
+  factory AuthenticationBloc() {
+    if (_authenticationBloc == null)
+      _authenticationBloc = AuthenticationBloc._internal();
+    return _authenticationBloc!;
   }
 
   ChefRepository _chefRepository = ChefRepository();
@@ -28,6 +37,8 @@ class AuthenticationBloc
       yield await _mapAuthStatusChangedToState(event);
     } else if (event is AuthLogoutRequested) {
       _chefRepository.logout(fromAll: event.logOutAll);
+    } else if (event is AutClearAndUnauthenticated) {
+      _chefRepository.clear();
     }
   }
 

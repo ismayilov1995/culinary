@@ -1,3 +1,4 @@
+import 'package:culinary_app/blocs/auth/authentication_bloc.dart';
 import 'package:culinary_app/services/restapi/services.dart';
 import 'package:dio/dio.dart';
 
@@ -31,6 +32,9 @@ class CulinaryInterceptor extends Interceptor {
       print("Connection timeout " + err.toString());
     } else if (err.response?.statusCode == 403) {
       tokenRefreshed = false;
+      if (tokenRefreshed = true) {
+        AuthenticationBloc().add(AutClearAndUnauthenticated());
+      }
     } else if (err.response?.statusCode == 401 && !tokenRefreshed) {
       try {
         tokenRefreshed = true;

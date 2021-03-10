@@ -69,8 +69,7 @@ class ChefRepository extends ChefBase {
       var token = await _storage.getRefreshToken();
       await _service.logout(fromAll: fromAll, refreshToken: token);
     } finally {
-      await _storage.removeAuth();
-      _controller.add(AuthStatus.unauthenticated);
+      clear();
     }
   }
 
@@ -80,6 +79,11 @@ class ChefRepository extends ChefBase {
     await _storage.saveAuth(auth);
     _controller.add(AuthStatus.authenticated);
     return auth;
+  }
+
+  void clear() async {
+    await _storage.removeAuth();
+    _controller.add(AuthStatus.unauthenticated);
   }
 
   void dispose() => _controller.close();
