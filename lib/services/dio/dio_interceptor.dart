@@ -29,10 +29,8 @@ class CulinaryInterceptor extends Interceptor {
         err.type == DioErrorType.connectTimeout ||
         err.type == DioErrorType.receiveTimeout) {
       print("Connection timeout " + err.toString());
-    } else if (err.response?.statusCode == 403 &&
-        err.response.toString().contains('token')) {
+    } else if (err.response?.statusCode == 403) {
       tokenRefreshed = false;
-      await _localStorage.removeAuth();
     } else if (err.response?.statusCode == 401 && !tokenRefreshed) {
       try {
         tokenRefreshed = true;

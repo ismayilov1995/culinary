@@ -65,10 +65,13 @@ class ChefRepository extends ChefBase {
 
   @override
   Future<void> logout({bool? fromAll}) async {
-    var token = await _storage.getRefreshToken();
-    await _service.logout(fromAll: fromAll, refreshToken: token);
-    await _storage.removeAuth();
-    _controller.add(AuthStatus.unauthenticated);
+    try {
+      var token = await _storage.getRefreshToken();
+      await _service.logout(fromAll: fromAll, refreshToken: token);
+    } finally {
+      await _storage.removeAuth();
+      _controller.add(AuthStatus.unauthenticated);
+    }
   }
 
   @override
