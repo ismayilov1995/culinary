@@ -31,11 +31,11 @@ class AppTheme {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness:
-          themeIsLight ? Brightness.dark : Brightness.light,
+          themeIsLight ? Brightness.light : Brightness.dark,
       systemNavigationBarIconBrightness:
-          themeIsLight ? Brightness.dark : Brightness.light,
+          themeIsLight ? Brightness.light : Brightness.dark,
       systemNavigationBarColor:
-          themeIsLight ? lightBackgroundColor : darkBackgroundColor,
+          themeIsLight ? darkBackgroundColor : lightBackgroundColor,
       systemNavigationBarDividerColor: Colors.transparent,
     ));
   }

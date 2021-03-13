@@ -1,5 +1,6 @@
 import 'package:culinary_app/logic/blocs/blocs.dart';
 import 'package:culinary_app/data/models/models.dart';
+import 'package:culinary_app/logic/cubits/cubits.dart';
 import 'package:culinary_app/presentation/screens/screens.dart';
 import 'package:culinary_app/data/repositories/repositories.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +49,7 @@ class UserWelcomeRow extends StatelessWidget {
                     value: 0,
                   ),
                   PopupMenuItem(
-                    child: Text('Favorite'),
+                    child: Text('Change theme'),
                     value: 5,
                   ),
                   PopupMenuItem(
@@ -94,7 +95,7 @@ class UserWelcomeRow extends StatelessWidget {
         CreateRecipeScreen.route(context);
         break;
       case 5:
-        CreateRecipeScreen.route(context);
+        context.read<ThemeCubit>().setTheme();
         break;
     }
   }
