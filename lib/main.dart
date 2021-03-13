@@ -1,9 +1,11 @@
-import 'package:culinary_app/blocs/blocs.dart';
-import 'package:culinary_app/ui/widgets/widgets.dart';
+import 'package:culinary_app/logic/blocs/blocs.dart';
+import 'package:culinary_app/core/themes/app_theme.dart';
+import 'package:culinary_app/presentation/router/app_router.dart';
+import 'package:culinary_app/presentation/screens/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'services/helper/helper.dart';
+import 'logic/cubits/cubits.dart';
 
 void main() {
   runApp(App());
@@ -58,8 +60,8 @@ class _CulinaryAppState extends State<CulinaryApp> with WidgetsBindingObserver {
       darkTheme: AppTheme.darkTheme,
       // themeMode: context.select((ThemeCubit cubit) => cubit.state.themeMode),
       themeMode: ThemeMode.light,
-      initialRoute: '/',
-      onGenerateRoute: AppRouting.router,
+      initialRoute: HomeScreen.pageID,
+      onGenerateRoute: AppRouter.onGenerateRoute,
     );
   }
 }
