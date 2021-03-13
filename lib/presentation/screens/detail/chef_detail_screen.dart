@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:culinary_app/logic/blocs/blocs.dart';
 import 'package:culinary_app/data/models/models.dart';
+import 'package:culinary_app/logic/cubits/cubits.dart';
 import 'package:culinary_app/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,6 +23,7 @@ class ChefDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<FavoriteCubit>().favorites(id!);
     return Scaffold(
       key: _scaffoldKey,
       body: ListView(
@@ -42,6 +44,17 @@ class ChefDetailScreen extends StatelessWidget {
             ],
           ),
           _ChefAboutRow(email),
+          BlocBuilder<FavoriteCubit, FavoriteState>(builder: (context, state) {
+            if (state is FavoriteLoadSuccess) {
+              return RecommendRecipes(
+                title: 'Chef\'s favorite',
+                recipeResponse: state.recipeResponse,
+              );
+            } else if (state is FavoriteLoadFail) {
+              return Center(child: Text('There an error'));
+            }
+            return Center(child: CircularProgressIndicator());
+          }),
           RecipesListView('Chef\'s Recipes',
               filter: Filter(chef: id), showDelete: isUser)
         ],

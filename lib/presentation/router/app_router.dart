@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:culinary_app/core/exceptions/route_exception.dart';
 import 'package:culinary_app/logic/blocs/blocs.dart';
 import 'package:culinary_app/logic/cubits/cubits.dart';
+import 'package:culinary_app/logic/cubits/favorite/favorite_cubit.dart';
 import 'package:culinary_app/presentation/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +23,6 @@ class AppRouter {
             builder: (_) => MultiBlocProvider(
                   providers: [
                     BlocProvider(create: (context) => RecipeCubit()),
-                    BlocProvider(create: (context) => FavoriteBloc()),
                   ],
                   child: RecipeDetailScreen(arguments as String),
                 ));
@@ -61,6 +61,7 @@ class AppRouter {
               create: (context) => RecipeCubit(),
               child: ResultScreen(arguments as String)),
         );
+
       default:
         throw const RouteException('Route not found!');
     }

@@ -9,6 +9,10 @@ class RecipeResponse {
   static RecipeResponse jsonToMap(String str) =>
       RecipeResponse.fromMap(json.decode(str));
 
+  static RecipeResponse jsonToMapFromFavorite(String str) {
+    return RecipeResponse.fromMap(json.decode(str)["favorite"]);
+  }
+
   static String mapToJson(RecipeResponse data) => json.encode(data.toMap());
 
   RecipeResponse({
@@ -85,7 +89,7 @@ class Recipe {
 
   factory Recipe.fromMapForHome(Map<String, dynamic> json) => Recipe(
         id: json["_id"],
-        chef: Chef.fromMapForHome(json["chef"]),
+        chef: json["chef"] != null ? Chef.fromMapForHome(json["chef"]) : Chef(),
         cookingTime: json["cookingTime"],
         image: List<String>.from(json["image"].map((x) => x)),
         overview: json["overview"],

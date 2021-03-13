@@ -18,6 +18,7 @@ class App extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => AuthenticationBloc()),
         BlocProvider(create: (context) => ThemeCubit()),
+        BlocProvider(create: (context) => FavoriteCubit()),
       ],
       child: CulinaryApp(),
     );

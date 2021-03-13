@@ -1,3 +1,4 @@
+import 'package:culinary_app/data/models/models.dart';
 import 'package:culinary_app/data/repositories/repositories.dart';
 import 'package:culinary_app/logic/blocs/auth/authentication_bloc.dart';
 import 'package:culinary_app/logic/cubits/cubits.dart';
@@ -26,7 +27,7 @@ class HomeScreen extends StatelessWidget {
               UserWelcomeRow(),
               SearchRow(),
               BlocProvider(
-                  create: (_) => RecipeCubit(), child: RecommendRecipesRow()),
+                  create: (_) => RecipeCubit(), child: _RecommendList()),
               BlocProvider(
                   create: (_) => RecipeCubit(),
                   child: RecipesListView('Latest Recipes')),
@@ -34,6 +35,26 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _RecommendList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    context.read<RecipeCubit>().load(filter: Filter(popular: true));
+    return BlocBuilder<RecipeCubit, RecipeState>(
+      builder: (context, state) {
+        if (state is RecipesLoadSuccess) {
+          return RecommendRecipes(
+            title: 'Recommended',
+            recipeResponse: state.recipeResponse,
+          );
+        } else if (state is RecipesLoadFail) {
+          return Center(child: Text(state.error));
+        }
+        return Center(child: CircularProgressIndicator());
+      },
     );
   }
 }

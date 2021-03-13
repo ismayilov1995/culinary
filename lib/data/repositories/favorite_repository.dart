@@ -23,5 +23,5 @@ class FavoriteRepository extends FavoriteBase {
   Future<void> delete() => _favoriteService.delete();
 
   @override
-  Future<RecipeResponse> favorites() => _favoriteService.favorites();
+  Future<RecipeResponse> favorites(String id) => _favoriteService.favorites(id);
 }

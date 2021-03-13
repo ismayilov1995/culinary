@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:culinary_app/core/constants/strings.dart';
 import 'package:culinary_app/data/models/models.dart';
 import 'package:culinary_app/data/base/bases.dart';
 import 'package:culinary_app/data/dio/dio.dart';
@@ -20,16 +23,14 @@ class FavoriteService extends FavoriteBase {
 
   @override
   Future<bool> addRemove(String id) async {
-    final res = await dio.get(
-      '$path/$id',
-    );
-    return res.statusCode == 200;
+    final res = await dio.get('$path/add/$id');
+    return jsonDecode(res.toString())['message'];
   }
 
   @override
-  Future<RecipeResponse> favorites() async {
-    final res = await dio.get(path);
-    return RecipeResponse.jsonToMap(res.toString());
+  Future<RecipeResponse> favorites(String id) async {
+    final res = await dio.get('$path/all/$id');
+    return RecipeResponse.jsonToMapFromFavorite(res.toString());
   }
 
   @override
