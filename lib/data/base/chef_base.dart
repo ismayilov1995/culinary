@@ -1,7 +1,7 @@
 import 'package:culinary_app/data/models/models.dart';
 
 abstract class ChefBase {
-  Future<Chef?> chef({String? email});
+  Future<Chef> chef(String email);
 
   Future<Auth> login(String email, String password);
 

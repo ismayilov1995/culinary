@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:culinary_app/logic/blocs/blocs.dart';
 import 'package:culinary_app/data/models/models.dart';
 import 'package:culinary_app/logic/cubits/cubits.dart';
 import 'package:culinary_app/presentation/widgets/widgets.dart';
@@ -43,7 +42,7 @@ class ChefDetailScreen extends StatelessWidget {
                 ),
             ],
           ),
-          _ChefAboutRow(email),
+          _ChefAboutRow(email!),
           BlocBuilder<FavoriteCubit, FavoriteState>(builder: (context, state) {
             if (state is FavoriteLoadSuccess) {
               return RecommendRecipes(
@@ -66,27 +65,27 @@ class ChefDetailScreen extends StatelessWidget {
 class _ChefAboutRow extends StatelessWidget {
   _ChefAboutRow(this.email);
 
-  final String? email;
+  final String email;
 
   @override
   Widget build(BuildContext context) {
-    context.read<ChefBloc>().add(LoadChef(email: email));
-    return BlocBuilder<ChefBloc, ChefState>(
+    context.read<ChefCubit>().load(email);
+    return BlocBuilder<ChefCubit, ChefState>(
       builder: (context, state) {
-        if (state is SuccessLoadChef) {
+        if (state is ChefLoadSuccess) {
           return Container(
             alignment: Alignment.center,
             margin: EdgeInsets.symmetric(horizontal: 20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                AppCircleAvatar(imagePath: state.chef!.avatar, diameter: 160),
+                AppCircleAvatar(imagePath: state.chef.avatar, diameter: 160),
                 AppText(
-                  state.chef!.name,
+                  state.chef.name,
                   font: 'Pacifico',
                   fontSize: 26.0,
                 ),
-                AppText(state.chef!.title,
+                AppText(state.chef.title,
                     color: Theme.of(context).helperTextColor),
                 SizedBox(height: 10.0),
                 Row(
@@ -115,14 +114,14 @@ class _ChefAboutRow extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 AppText(
-                  state.chef!.about ?? 'Chefs biography',
+                  state.chef.about ?? 'Chefs biography',
                   color: Theme.of(context).helperTextColor,
                   align: TextAlign.center,
                 ),
               ],
             ),
           );
-        } else if (state is FailLoadChef) {
+        } else if (state is ChefLoadFail) {
           return Center(child: Text(state.error));
         }
         return Center(child: CircularProgressIndicator());

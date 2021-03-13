@@ -46,8 +46,8 @@ class ChefRepository extends ChefBase {
   }
 
   @override
-  Future<Chef?> chef({String? email}) async {
-    return await _service.chef(email: email);
+  Future<Chef> chef(String email) async {
+    return await _service.chef(email);
   }
 
   @override

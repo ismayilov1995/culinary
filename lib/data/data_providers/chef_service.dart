@@ -21,9 +21,8 @@ class ChefService extends ChefBase {
   }
 
   @override
-  Future<Chef> chef({String? email}) async {
-    var p = email != null ? '/profile/$email' : '/';
-    final res = await dio.get('$path$p');
+  Future<Chef> chef(String email) async {
+    final res = await dio.get('$path/profile/$email');
     return Chef.fromMap(jsonDecode(res.toString())['chef']);
   }
 

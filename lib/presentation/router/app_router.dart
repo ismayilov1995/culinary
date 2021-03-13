@@ -1,9 +1,7 @@
 import 'dart:convert';
 
 import 'package:culinary_app/core/exceptions/route_exception.dart';
-import 'package:culinary_app/logic/blocs/blocs.dart';
 import 'package:culinary_app/logic/cubits/cubits.dart';
-import 'package:culinary_app/logic/cubits/favorite/favorite_cubit.dart';
 import 'package:culinary_app/presentation/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,7 +29,7 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (_) => MultiBlocProvider(
                   providers: [
-                    BlocProvider(create: (context) => ChefBloc()),
+                    BlocProvider(create: (context) => ChefCubit()),
                     BlocProvider(create: (context) => RecipeCubit()),
                   ],
                   child: ChefDetailScreen(

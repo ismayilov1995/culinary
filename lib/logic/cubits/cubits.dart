@@ -3,3 +3,4 @@ export 'auth/register_cubit.dart';
 export 'theme/theme_cubit.dart';
 export 'recipe/recipe_cubit.dart';
 export 'favorite/favorite_cubit.dart';
+export 'chef/chef_cubit.dart';

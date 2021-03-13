@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:culinary_app/core/constants/strings.dart';
 import 'package:culinary_app/data/models/models.dart';
 import 'package:culinary_app/data/base/bases.dart';
 import 'package:culinary_app/data/dio/dio.dart';
