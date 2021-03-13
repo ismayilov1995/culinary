@@ -1,10 +1,10 @@
 import 'package:culinary_app/data/models/models.dart';
+import 'package:culinary_app/logic/cubits/cubits.dart';
 import 'package:culinary_app/presentation/screens/detail/chef_detail_screen.dart';
 
 import 'package:culinary_app/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:culinary_app/logic/blocs/blocs.dart';
 
 class RecipeDetailScreen extends StatelessWidget {
   static const pageID = '/recipe';
@@ -18,42 +18,29 @@ class RecipeDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<RecipeBloc>().add(LoadRecipe(this.selectedRecipe));
-    return Scaffold(body: BlocBuilder<RecipeBloc, RecipeState>(
+    context.read<RecipeCubit>().loadRecipe(selectedRecipe);
+    return Scaffold(body: BlocBuilder<RecipeCubit, RecipeState>(
       builder: (context, state) {
-        if (state is SuccessLoadRecipe) {
+        if (state is RecipeLoadSuccess) {
           return _scaffoldBackground(context,
               image: state.recipe.mainImage,
               child: ListView(
                 physics: BouncingScrollPhysics(),
                 children: [
-                  BlocListener<FavoriteBloc, FavoriteState>(
-                    listener: (context, state) {
-                      if (state is AddedFavorite) {
-                        ScaffoldMessenger.of(context)
-                          ..hideCurrentSnackBar()
-                          ..showSnackBar(SnackBar(content: Text('Favorite')));
-                      }
-                    },
-                    child: CulinaryAppBar(
-                      actions: [
-                        TextButton.icon(
-                          icon: Icon(
-                            Icons.favorite,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          label: AppText(
-                            'Favorite',
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          onPressed: () {
-                            context
-                                .read<FavoriteBloc>()
-                                .add(AddRemoveFavorite(selectedRecipe));
-                          },
-                        )
-                      ],
-                    ),
+                  CulinaryAppBar(
+                    actions: [
+                      TextButton.icon(
+                        icon: Icon(
+                          Icons.favorite,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        label: AppText(
+                          'Favorite',
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        onPressed: () {},
+                      )
+                    ],
                   ),
                   _MealOverview(state.recipe),
                   _ChefInformationCard(state.recipe.chef!),
@@ -62,7 +49,7 @@ class RecipeDetailScreen extends StatelessWidget {
                   LogoHorizontal(),
                 ],
               ));
-        } else if (state is FailLoadRecipe) {
+        } else if (state is RecipeLoadFail) {
           return Center(child: Text(state.error));
         }
         return Center(child: CircularProgressIndicator());

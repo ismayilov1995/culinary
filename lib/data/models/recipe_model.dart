@@ -6,11 +6,10 @@ import 'package:culinary_app/data/base/rest_url.dart';
 import 'models.dart';
 
 class RecipeResponse {
-  static RecipeResponse recipeResponseFromMap(String str) =>
+  static RecipeResponse jsonToMap(String str) =>
       RecipeResponse.fromMap(json.decode(str));
 
-  static String recipeResponseToMap(RecipeResponse data) =>
-      json.encode(data.toMap());
+  static String mapToJson(RecipeResponse data) => json.encode(data.toMap());
 
   RecipeResponse({
     this.recipes,
@@ -20,10 +19,10 @@ class RecipeResponse {
   List<Recipe>? recipes;
   int? total;
 
-  factory RecipeResponse.fromMap(Map<String, dynamic> json) => RecipeResponse(
+  factory RecipeResponse.fromMap(Map<String, dynamic> map) => RecipeResponse(
         recipes: List<Recipe>.from(
-            json["recipes"].map((e) => Recipe.fromMapForHome(e))),
-        total: json["total"] ?? 0,
+            map["recipes"].map((e) => Recipe.fromMapForHome(e))),
+        total: map["total"] ?? 0,
       );
 
   Map<String, dynamic> toMap() => {

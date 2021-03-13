@@ -12,13 +12,13 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: 1.0.2
-  dio: ^4.0.0-beta4
-  flutter_bloc: ^7.0.0-nullsafety.3
+  dio: ^4.0.0-beta7
+  flutter_bloc: ^7.0.0-nullsafety.5
   equatable: ^2.0.0
   flutter_svg: ^0.21.0-nullsafety.0
-  shared_preferences: ^2.0.3
+  shared_preferences: ^2.0.4
   http: ^0.13.0
-  image_picker: ^0.7.2
+  image_picker: ^0.7.2+1
 
 dev_dependencies:
   flutter_test:

@@ -1,8 +1,7 @@
 import 'dart:io';
 
-import 'package:culinary_app/logic/blocs/blocs.dart';
 import 'package:culinary_app/data/models/models.dart';
-import 'package:culinary_app/data/repositories/repositories.dart';
+import 'package:culinary_app/logic/cubits/cubits.dart';
 import 'package:culinary_app/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,7 +31,7 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<RecipeBloc>().add(Check());
+    // context.read<RecipeBloc>().add(Check());
     directionsMap[0] = _direction(0);
   }
 
@@ -41,21 +40,15 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
     return Scaffold(
       body: MultiBlocListener(
         listeners: [
-          BlocListener<RecipeBloc, RecipeState>(listener: (context, state) {
-            if (state is SuccessCreateRecipe) {
+          BlocListener<RecipeCubit, RecipeState>(listener: (context, state) {
+            if (state is RecipeCreateSuccess) {
               Navigator.pop(context);
-            } else if (state is FailCreateRecipe) {
+            } else if (state is RecipeCreateFail) {
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(SnackBar(content: Text(state.error)));
             }
           }),
-          BlocListener<AuthenticationBloc, AuthenticationState>(
-              listener: (context, state) {
-            if (state.status == AuthStatus.unauthenticated) {
-              Navigator.pop(context);
-            }
-          })
         ],
         child: Form(
           key: _formKey,
@@ -265,7 +258,7 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
     setState(() => recipe = recipe);
     if (!_formKey.currentState!.validate()) return;
     _formKey.currentState!.save();
-    context.read<RecipeBloc>().add(CreateRecipe(recipe));
+    context.read<RecipeCubit>().create(recipe);
   }
 
   void addRemoveDirection(int id, bool remove) {

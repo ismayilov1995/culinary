@@ -37,7 +37,7 @@ class RecipeService extends RecipeBase {
     Map<String, dynamic> query = Map();
     if (filter != null) query = filter.toMap();
     final res = await dio.get(path, queryParameters: query);
-    return RecipeResponse.recipeResponseFromMap(res.toString());
+    return RecipeResponse.jsonToMap(res.toString());
   }
 
   @override

@@ -1,5 +1,5 @@
-import 'package:culinary_app/logic/blocs/blocs.dart';
 import 'package:culinary_app/data/models/models.dart';
+import 'package:culinary_app/logic/cubits/cubits.dart';
 import 'package:culinary_app/presentation/screens/detail/recipe_detail_screen.dart';
 import 'package:culinary_app/presentation/widgets/recommend_card.dart';
 import 'package:culinary_app/presentation/widgets/single_card.dart';
@@ -9,12 +9,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class RecommendRecipesRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    context.read<RecipeBloc>().add(LoadRecipes(filter: Filter(popular: true)));
+    context.read<RecipeCubit>().load(filter: Filter(popular: true));
     return SingleCardStruct(
       'Recommended',
-      child: BlocBuilder<RecipeBloc, RecipeState>(
+      child: BlocBuilder<RecipeCubit, RecipeState>(
         builder: (context, state) {
-          if (state is SuccessLoadRecipes) {
+          if (state is RecipesLoadSuccess) {
             return SizedBox(
               height: 250,
               child: ListView.builder(
@@ -36,7 +36,7 @@ class RecommendRecipesRow extends StatelessWidget {
                     );
                   }),
             );
-          } else if (state is FailLoadRecipes) {
+          } else if (state is RecipesLoadFail) {
             return Center(child: Text(state.error));
           }
           return Center(child: CircularProgressIndicator());

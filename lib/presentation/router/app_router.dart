@@ -21,7 +21,7 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (_) => MultiBlocProvider(
                   providers: [
-                    BlocProvider(create: (context) => RecipeBloc()),
+                    BlocProvider(create: (context) => RecipeCubit()),
                     BlocProvider(create: (context) => FavoriteBloc()),
                   ],
                   child: RecipeDetailScreen(arguments as String),
@@ -32,7 +32,7 @@ class AppRouter {
             builder: (_) => MultiBlocProvider(
                   providers: [
                     BlocProvider(create: (context) => ChefBloc()),
-                    BlocProvider(create: (context) => RecipeBloc()),
+                    BlocProvider(create: (context) => RecipeCubit()),
                   ],
                   child: ChefDetailScreen(
                     data['email'],
@@ -53,12 +53,12 @@ class AppRouter {
       case CreateRecipeScreen.pageID:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-              create: (context) => RecipeBloc(), child: CreateRecipeScreen()),
+              create: (context) => RecipeCubit(), child: CreateRecipeScreen()),
         );
       case ResultScreen.pageID:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-              create: (context) => RecipeBloc(),
+              create: (context) => RecipeCubit(),
               child: ResultScreen(arguments as String)),
         );
       default:

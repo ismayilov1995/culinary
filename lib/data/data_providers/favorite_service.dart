@@ -29,7 +29,7 @@ class FavoriteService extends FavoriteBase {
   @override
   Future<RecipeResponse> favorites() async {
     final res = await dio.get(path);
-    return RecipeResponse.recipeResponseFromMap(res.toString());
+    return RecipeResponse.jsonToMap(res.toString());
   }
 
   @override
