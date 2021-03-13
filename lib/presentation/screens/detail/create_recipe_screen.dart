@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:culinary_app/core/constants/colors.dart';
+import 'package:culinary_app/core/themes/app_theme.dart';
 import 'package:culinary_app/data/models/models.dart';
 import 'package:culinary_app/logic/cubits/cubits.dart';
 import 'package:culinary_app/presentation/widgets/widgets.dart';
@@ -59,10 +61,10 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
               AppBar(
                 title: AppText(
                   'New recipe',
-                  color: Theme.of(context).primaryColor,
+                  color: Theme.of(context).textColor,
                 ),
                 iconTheme: IconThemeData(
-                  color: Theme.of(context).primaryColor,
+                  color: Theme.of(context).textColor,
                 ),
                 backgroundColor: Colors.transparent,
                 elevation: 0,
@@ -78,7 +80,7 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
                 child: _image == null
                     ? Center(
                         child: IconButton(
-                          color: Theme.of(context).primaryColor,
+                          color: Theme.of(context).textColor,
                           iconSize: 32,
                           icon: Icon(Icons.camera_alt),
                           onPressed: () => showDialog(

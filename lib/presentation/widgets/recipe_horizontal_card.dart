@@ -56,7 +56,8 @@ class RecipeHorizontalCard extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(width: 4, color: Colors.white),
+                  border: Border.all(
+                      width: 4, color: Theme.of(context).recipeCardBG),
                   boxShadow: [Theme.of(context).cardShadow],
                 ),
                 child: ClipRRect(

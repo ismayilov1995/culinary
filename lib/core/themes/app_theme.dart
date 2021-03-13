@@ -4,16 +4,6 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 
 class AppTheme {
-  static Color lightBackgroundColor = const Color(0xfff2f2f2);
-  static Color lightPrimaryColor = const Color(0xfff2f2f2);
-  static Color lightAccentColor = Colors.blueGrey.shade200;
-  static Color lightParticlesColor = const Color(0x44948282);
-
-  static Color darkBackgroundColor = const Color(0xFF1A2127);
-  static Color darkPrimaryColor = const Color(0xFF1A2127);
-  static Color darkAccentColor = Colors.blueGrey.shade600;
-  static Color darkParticlesColor = const Color(0x441C2A3D);
-
   const AppTheme._();
 
   static final lightTheme = ThemeData.light().copyWith(
@@ -52,13 +42,13 @@ class AppTheme {
 }
 
 extension ThemeExtras on ThemeData {
-  Color get recipeCardBG => isLight ? kLightCardBg : kDarkCardBg;
+  Color get recipeCardBG => isLight ? lightCardBg : darkCardBg;
 
-  Color get helperTextColor => isLight ? kLightHelperTC : kDarkHelperTC;
+  Color get helperTextColor => isLight ? lightHelperTC : darkHelperTC;
 
-  Color get textFieldBG => isLight ? kLightTextFieldBg : kDarkTextFieldBg;
+  Color get textFieldBG => isLight ? lightTextFieldBg : darkTextFieldBg;
 
-  Color get textColor => isLight ? kDarkCardBg : kLightCardBg;
+  Color get textColor => isLight ? darkCardBg : lightCardBg;
 
   BoxShadow get cardShadow => isLight ? kLightCardShadow : kDarkCardShadow;
 

@@ -4,6 +4,7 @@ import 'package:culinary_app/presentation/widgets/widgets.dart';
 import 'package:culinary_app/data/repositories/repositories.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:culinary_app/core/themes/app_theme.dart';
 
 class LoginScreen extends StatelessWidget {
   static const pageID = '/login';

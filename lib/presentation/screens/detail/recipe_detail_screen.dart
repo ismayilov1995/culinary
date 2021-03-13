@@ -1,3 +1,4 @@
+import 'package:culinary_app/core/constants/colors.dart';
 import 'package:culinary_app/data/models/models.dart';
 import 'package:culinary_app/logic/cubits/cubits.dart';
 import 'package:culinary_app/presentation/screens/detail/chef_detail_screen.dart';
@@ -5,6 +6,7 @@ import 'package:culinary_app/presentation/screens/detail/chef_detail_screen.dart
 import 'package:culinary_app/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:culinary_app/core/themes/app_theme.dart';
 
 class RecipeDetailScreen extends StatelessWidget {
   static const pageID = '/recipe';
@@ -107,7 +109,8 @@ class _MealOverview extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                border: Border.all(width: 6, color: Colors.white),
+                border:
+                    Border.all(width: 6, color: Theme.of(context).recipeCardBG),
                 boxShadow: [Theme.of(context).cardShadow]),
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(size.width * 0.3),
@@ -139,7 +142,7 @@ class _MealOverview extends StatelessWidget {
           Center(
               child: BriefInfoWidget(
                   '${recipe.cookingTime} min', recipe.person.toString(),
-                  color: Colors.black)),
+                  color: Theme.of(context).textColor)),
         ],
       ),
     );
@@ -232,6 +235,7 @@ class _PrepareRow extends StatelessWidget {
                         children: [
                           CircleAvatar(
                             radius: 15,
+                            backgroundColor: Theme.of(context).primaryColor,
                             child: Text((direction.indexOf(e) + 1).toString()),
                           ),
                           Container(

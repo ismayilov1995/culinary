@@ -25,42 +25,14 @@ class App extends StatelessWidget {
   }
 }
 
-class CulinaryApp extends StatefulWidget {
-  const CulinaryApp({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  _CulinaryAppState createState() => _CulinaryAppState();
-}
-
-class _CulinaryAppState extends State<CulinaryApp> with WidgetsBindingObserver {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance?.addObserver(this);
-  }
-
-  @override
-  void didChangePlatformBrightness() {
-    context.read<ThemeCubit>().changeTheme();
-    super.didChangePlatformBrightness();
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance?.removeObserver(this);
-    super.dispose();
-  }
-
+class CulinaryApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Culinary app',
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      // themeMode: context.select((ThemeCubit cubit) => cubit.state.themeMode),
-      themeMode: ThemeMode.light,
+      themeMode: context.select((ThemeCubit cubit) => cubit.state.themeMode),
       initialRoute: HomeScreen.pageID,
       onGenerateRoute: AppRouter.onGenerateRoute,
     );
